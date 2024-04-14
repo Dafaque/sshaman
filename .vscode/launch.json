@@ -1,0 +1,71 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Add",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/sshaman/main.go",
+            "args": [
+                "add",
+                "-alias","test",
+                "-host", "localhost",
+                "-user", "admin",
+                "-key", "~/.ssh/id_ed25519",
+                "-skip-password",
+                "-skip-passphrase",
+                "-force",
+            ],
+        },{
+            "name": "Connect",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/sshaman/main.go",
+            "args": [
+                "connect",
+                "-alias", "test"
+            ],
+        },{
+            "name": "Drop",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/sshaman/main.go",
+            "args": [
+                "drop",
+                "-force",
+            ],
+        },{
+            "name": "List",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/sshaman/main.go",
+            "args": [
+                "list",
+            ],
+        },{
+            "name": "Del",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/sshaman/main.go",
+            "args": [
+                "delete",
+                "-alias", "test2"
+            ],
+        }
+    ]
+}
