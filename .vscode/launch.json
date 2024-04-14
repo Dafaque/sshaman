@@ -66,6 +66,17 @@
                 "delete",
                 "-alias", "test2"
             ],
+        },{
+            "name": "Info",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/sshaman/main.go",
+            "args": [
+                "-version",
+            ],
         }
     ]
 }

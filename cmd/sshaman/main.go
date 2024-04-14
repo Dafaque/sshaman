@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"runtime/debug"
 	"strings"
 	"text/tabwriter"
 
@@ -84,6 +85,18 @@ func main() {
 	dropFlags.BoolVar(&flagLocal, "local", true, "use local storage")
 	dropFlags.BoolVar(&flagRemote, "remote", false, "use remote storage (unimplemented)") //@todo implement
 	dropFlags.BoolVar(&flagForce, "force", false, "force operation")
+
+	ver := flag.Bool("version", false, "show app details")
+	flag.Parse()
+
+	if *ver {
+		i, _ := debug.ReadBuildInfo()
+		fmt.Println("goVersion:", i.GoVersion)
+		fmt.Println("module:", i.Main.Path)
+		fmt.Println("version:", i.Main.Version)
+		fmt.Println("sum:", i.Main.Sum)
+		os.Exit(0)
+	}
 
 	if len(os.Args) < 2 {
 		addFlags.Usage()
