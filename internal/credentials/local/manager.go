@@ -59,8 +59,8 @@ func (m *manager) Get(name string) (*credentials.Credentials, error) {
 }
 
 func (m *manager) Set(name string, cred *credentials.Credentials, force bool) error {
-	cred, err := m.Get(name)
-	if cred != nil && !force {
+	existedCred, err := m.Get(name)
+	if existedCred != nil && !force {
 		return fmt.Errorf("connection %s is already exists; use -force to override", name)
 	} else if err != nil && !errors.Is(err, badger.ErrKeyNotFound) {
 		return err
