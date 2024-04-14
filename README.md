@@ -3,8 +3,10 @@
 
 SSHaMan is open-source SSH connections manager written in go.
 
-# Install 
-
+# Install
+```shell
+go install github.com/Dafaque/sshaman/cmd/sshaman@latest
+```
 # Usage
 ## Add credentials
 Command bellow will help you create new credentials for `localhost:22` with user `admin` and ssh key `~/.ssh/id_ed25519`:
@@ -115,6 +117,9 @@ Usage of sshaman:
 ```
 # ToDo
 - Add app/OpenSSH info
+- Add Homebrew release
+- Add apt/snap release
+- Add nix derivation
 - OpenSSH's known_hosts handle
 - App configuration
 - Import/export repository
