@@ -8,5 +8,6 @@ type Credentials struct {
 	Password   *string `msgpack:"password,omitempty"`
 	Key        []byte  `msgpack:"key,omitempty"`
 	Passphrase []byte  `msgpack:"passphrase,omitempty"`
-	Source     string  `msgpack:"-"`
+	Source     *string `msgpack:"source,omitempty"`
+	Local      bool    `msgpack:"-"`
 }

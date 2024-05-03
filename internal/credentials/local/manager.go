@@ -58,10 +58,10 @@ func (m *manager) Get(name string) (*credentials.Credentials, error) {
 	return &creds, err
 }
 
-func (m *manager) Set(name string, cred *credentials.Credentials, force bool) error {
-	existedCred, err := m.Get(name)
+func (m *manager) Set(cred *credentials.Credentials, force bool) error {
+	existedCred, err := m.Get(cred.Alias)
 	if existedCred != nil && !force {
-		return fmt.Errorf("connection %s is already exists; use -force to override", name)
+		return credentials.NewCredentialExistsError(cred.Alias)
 	} else if err != nil && !errors.Is(err, badger.ErrKeyNotFound) {
 		return err
 	}
@@ -71,7 +71,7 @@ func (m *manager) Set(name string, cred *credentials.Credentials, force bool) er
 		if err := encoder.Encode(cred); err != nil {
 			return err
 		}
-		return txn.Set([]byte(name), buf.Bytes())
+		return txn.Set([]byte(cred.Alias), buf.Bytes())
 	})
 }
 
@@ -122,8 +122,15 @@ func (m *manager) Done() error {
 }
 
 func (m *manager) decodeCredentials(val []byte, creds *credentials.Credentials) error {
-	creds.Source = m.location
+	creds.Local = true
 	buf := bytes.NewBuffer(val)
 	decoder := msgpack.NewDecoder(buf)
-	return decoder.Decode(creds)
+	err := decoder.Decode(creds)
+	if err != nil {
+		return err
+	}
+	if creds.Source == nil {
+		creds.Source = &m.location
+	}
+	return nil
 }

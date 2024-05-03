@@ -1,14 +1,34 @@
 {
     "version": "0.2.0",
     "configurations": [
-        {
+        {// MARK: - Add
             "name": "Add",
             "type": "go",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "mode": "auto",
-            "program": "cmd/sshaman/main.go",
+            "program": "cmd/sshaman/",
+            "args": [
+                "add",
+                "-alias","test",
+                "-host", "localhost",
+                "-user", "admin",
+                "-key", "~/.ssh/id_ed25519",
+                "-skip-password",
+                "-skip-passphrase",
+            ],
+            "env": {
+                "SSHAMAN_HOME": "${workspaceFolder}/"
+            },
+        },{
+            "name": "Add FORCE",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/sshaman/",
             "args": [
                 "add",
                 "-alias","test",
@@ -19,64 +39,168 @@
                 "-skip-passphrase",
                 "-force",
             ],
-        },{
+            "env": {
+                "SSHAMAN_HOME": "${workspaceFolder}/"
+            },
+        },{//MARK: - Connect
             "name": "Connect",
             "type": "go",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "mode": "auto",
-            "program": "cmd/sshaman/main.go",
+            "program": "cmd/sshaman/",
             "args": [
                 "connect",
                 "-alias", "test"
             ],
-        },{
+            "env": {
+                "SSHAMAN_HOME": "${workspaceFolder}/"
+            },
+        },{// MARK: - Drop
             "name": "Drop",
             "type": "go",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "mode": "auto",
-            "program": "cmd/sshaman/main.go",
+            "program": "cmd/sshaman/",
             "args": [
                 "drop",
                 "-force",
             ],
-        },{
+            "env": {
+                "SSHAMAN_HOME": "${workspaceFolder}/"
+            },
+        },{ // MARK: - List
             "name": "List",
             "type": "go",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "mode": "auto",
-            "program": "cmd/sshaman/main.go",
+            "program": "cmd/sshaman/",
             "args": [
                 "list",
             ],
-        },{
+            "env": {
+                "SSHAMAN_HOME": "${workspaceFolder}/"
+            },
+        },{ // MARK: - Del
             "name": "Del",
             "type": "go",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "mode": "auto",
-            "program": "cmd/sshaman/main.go",
+            "program": "cmd/sshaman/",
             "args": [
                 "delete",
-                "-alias", "test2"
+                "-alias", "test"
             ],
+            "env": {
+                "SSHAMAN_HOME": "${workspaceFolder}/"
+            },
+        },{ // MARK: - Export
+            "name": "Export NO PASS",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/sshaman/",
+            "args": [
+                "export",
+                "-skip-password",
+            ],
+            "env": {
+                "SSHAMAN_HOME": "${workspaceFolder}/"
+            },
         },{
+        "name": "Export",
+        "type": "go",
+        "request": "launch",
+        "cwd": "${workspaceFolder}",
+        "console": "integratedTerminal",
+        "mode": "auto",
+        "program": "cmd/sshaman/",
+        "args": [
+            "export"
+        ],
+        "env": {
+            "SSHAMAN_HOME": "${workspaceFolder}/"
+        },
+        },{ // MARK: - Import
+            "name": "Import DRY NO PASS",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/sshaman/",
+            "args": [
+                "import",
+                "-dry-run",
+                "-skip-password",
+            ],
+            "env": {
+                "SSHAMAN_HOME": "${workspaceFolder}/"
+            },
+        },{
+        "name": "Import DRY",
+        "type": "go",
+        "request": "launch",
+        "cwd": "${workspaceFolder}",
+        "console": "integratedTerminal",
+        "mode": "auto",
+        "program": "cmd/sshaman/",
+        "args": [
+            "import",
+            "-dry-run",
+        ],
+        "env": {
+            "SSHAMAN_HOME": "${workspaceFolder}/"
+        },
+        },{
+            "name": "Import",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/sshaman/",
+            "args": [
+                "import",
+            ],
+            "env": {
+                "SSHAMAN_HOME": "${workspaceFolder}/"
+            },
+        },{ // MARK: - Info
             "name": "Info",
             "type": "go",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "mode": "auto",
-            "program": "cmd/sshaman/main.go",
+            "program": "cmd/sshaman/",
             "args": [
                 "-version",
             ],
+            "env": {
+                "SSHAMAN_HOME": "${workspaceFolder}/"
+            },
+        },{
+            "name": "Usage",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/sshaman/",
+            "env": {
+                "SSHAMAN_HOME": "${workspaceFolder}/"
+            },
         }
     ]
 }
+
