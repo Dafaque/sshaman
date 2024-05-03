@@ -7,8 +7,9 @@ import (
 	"path"
 	"strings"
 
-	"github.com/Dafaque/sshaman/internal/credentials"
 	"golang.org/x/term"
+
+	"github.com/Dafaque/sshaman/internal/credentials"
 )
 
 func addConnection(local credentials.Manager, remote credentials.Manager) error {
@@ -18,7 +19,7 @@ func addConnection(local credentials.Manager, remote credentials.Manager) error 
 	}
 
 	if flagLocal {
-		if err := local.Set(flagAlias, creds, flagForce); err != nil {
+		if err := local.Set(creds, flagForce); err != nil {
 			return err
 		}
 		fmt.Println("local credentials added for", flagAlias)
@@ -28,7 +29,7 @@ func addConnection(local credentials.Manager, remote credentials.Manager) error 
 		if remote == nil {
 			return errRemoteNotConfigured
 		}
-		if err := remote.Set(flagAlias, creds, flagForce); err != nil {
+		if err := remote.Set(creds, flagForce); err != nil {
 			return err
 		}
 		fmt.Println("remote credentials added for", flagAlias)

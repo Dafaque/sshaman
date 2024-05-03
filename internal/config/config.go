@@ -7,7 +7,8 @@ import (
 )
 
 const (
-	appHome string = ".sshaman"
+	appHome            string = ".sshaman"
+	homeOverrideEnvKey string = "SSHAMAN_HOME"
 )
 
 type Config struct {
@@ -17,9 +18,13 @@ type Config struct {
 
 func NewConfig() (*Config, error) {
 	var cfg Config
-	home, err := os.UserHomeDir()
-	if err != nil {
-		return nil, fmt.Errorf("failed to get home directory: %w", err)
+	var home string = os.Getenv(homeOverrideEnvKey)
+	if home == "" {
+		userHome, err := os.UserHomeDir()
+		if err != nil {
+			return nil, fmt.Errorf("failed to get home directory: %w", err)
+		}
+		home = userHome
 	}
 	home = path.Join(home, appHome)
 	if _, err := os.Stat(home); os.IsNotExist(err) {

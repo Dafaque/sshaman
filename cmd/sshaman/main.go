@@ -33,6 +33,9 @@ var (
 	flagSkipPassword   bool
 	flagSkipPassphrase bool
 
+	//? MARK: - Import
+	flagDryRun bool
+
 	//! MARK: - Danger zone
 	flagForce bool
 	flagDrop  bool
@@ -44,6 +47,8 @@ const (
 	cmdList    string = "list"
 	cmdDelete  string = "delete"
 	cmdDrop    string = "drop"
+	cmdExport  string = "export"
+	cmdImport  string = "import"
 )
 
 type operation func(credentials.Manager, credentials.Manager) error
@@ -87,9 +92,30 @@ func main() {
 	dropFlags.BoolVar(&flagRemote, "remote", false, "use remote storage (unimplemented)") //@todo implement
 	dropFlags.BoolVar(&flagForce, "force", false, "force operation")
 
+	// MARK: - Export
+	exportFlags := flag.NewFlagSet(cmdExport, flag.ExitOnError)
+	exportFlags.BoolVar(&flagSkipPassword, "skip-password", false, "skip password prompt")
+
+	// MARK: - Import
+	importFlags := flag.NewFlagSet(cmdImport, flag.ExitOnError)
+	importFlags.BoolVar(&flagDryRun, "dry-run", false, "view what would be imported")
+	importFlags.BoolVar(&flagSkipPassword, "skip-password", false, "skip password prompt")
+
 	// MARK: - App details
 	ver := flag.Bool("version", false, "show app details")
 	flag.Parse()
+
+	usage := func() {
+		addFlags.Usage()
+		conectFlags.Usage()
+		listFlags.Usage()
+		delFlags.Usage()
+		dropFlags.Usage()
+		importFlags.Usage()
+		exportFlags.Usage()
+		flag.Usage()
+		os.Exit(1)
+	}
 
 	if *ver {
 		i, _ := debug.ReadBuildInfo()
@@ -101,13 +127,7 @@ func main() {
 	}
 
 	if len(os.Args) < 2 {
-		addFlags.Usage()
-		conectFlags.Usage()
-		listFlags.Usage()
-		delFlags.Usage()
-		dropFlags.Usage()
-		flag.Usage()
-		os.Exit(1)
+		usage()
 	}
 
 	cfg, err := config.NewConfig()
@@ -146,14 +166,14 @@ func main() {
 	case cmdDrop:
 		flagset = dropFlags
 		op = dropCredentials
+	case cmdExport:
+		flagset = exportFlags
+		op = exportCredentials
+	case cmdImport:
+		flagset = importFlags
+		op = importCredentials
 	default:
-		addFlags.Usage()
-		conectFlags.Usage()
-		listFlags.Usage()
-		delFlags.Usage()
-		dropFlags.Usage()
-		flag.Usage()
-		os.Exit(1)
+		usage()
 	}
 
 	errParse := flagset.Parse(os.Args[2:])
