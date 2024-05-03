@@ -116,12 +116,10 @@ Usage of sshaman:
         comma-separated list of pattern=N settings for file-filtered logging
 ```
 # ToDo
-- Add app/OpenSSH info
 - Add Homebrew release
 - Add apt/snap release
 - Add nix derivation
 - OpenSSH's known_hosts handle
 - App configuration
-- Import/export repository
 - Local credentials repository encryption
 - Remote credentials repository
