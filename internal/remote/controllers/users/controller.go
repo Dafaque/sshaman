@@ -10,7 +10,7 @@ import (
 	"github.com/Dafaque/sshaman/internal/remote/auth"
 )
 
-type UsersController interface {
+type Controller interface {
 	Create(ctx context.Context, user *User) error
 	Update(ctx context.Context, user User) error
 	Get(ctx context.Context, userID int64) (*User, error)
@@ -18,14 +18,14 @@ type UsersController interface {
 	List(ctx context.Context) ([]User, error)
 }
 
-type usersController struct {
+type controller struct {
 	jwtManager      *auth.JWTManager
 	usersRepository usersRepository
 	logger          *zap.Logger
 }
 
-func New(jwtManager *auth.JWTManager, usersRepository usersRepository, logger *zap.Logger) (UsersController, error) {
-	controller := &usersController{
+func New(jwtManager *auth.JWTManager, usersRepository usersRepository, logger *zap.Logger) (Controller, error) {
+	controller := &controller{
 		jwtManager:      jwtManager,
 		usersRepository: usersRepository,
 		logger:          logger.Named("UsersControllers"),
@@ -52,29 +52,30 @@ func New(jwtManager *auth.JWTManager, usersRepository usersRepository, logger *z
 	return controller, nil
 }
 
-func (c *usersController) Create(ctx context.Context, user *User) error {
+func (c *controller) Create(ctx context.Context, user *User) error {
+	user.ID = -1
 	return c.usersRepository.Create(ctx, user)
 }
 
-func (c *usersController) Update(ctx context.Context, user User) error {
+func (c *controller) Update(ctx context.Context, user User) error {
 	return c.usersRepository.Update(ctx, user)
 }
 
-func (c *usersController) Get(ctx context.Context, userID int64) (*User, error) {
+func (c *controller) Get(ctx context.Context, userID int64) (*User, error) {
 	return c.usersRepository.Get(ctx, userID)
 }
 
-func (c *usersController) Delete(ctx context.Context, userID int64) error {
+func (c *controller) Delete(ctx context.Context, userID int64) error {
 	return c.usersRepository.Delete(ctx, userID)
 }
 
-func (c *usersController) List(ctx context.Context) ([]User, error) {
+func (c *controller) List(ctx context.Context) ([]User, error) {
 	return c.usersRepository.List(ctx)
 }
 
 var errSuperuserNotFound = errors.New("superuser not found")
 
-func (c *usersController) checkSuperuser() error {
+func (c *controller) checkSuperuser() error {
 	su, err := c.Get(context.Background(), 0)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {

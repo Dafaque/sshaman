@@ -33,43 +33,48 @@ type repository struct {
 func New(db *sql.DB) Repository {
 	return &repository{db: db}
 }
-
 func (r *repository) Create(ctx context.Context, user *users.User) error {
-	query := squirrel.Insert(tableName).
-		Columns(columns...).
-		Values(user.ID, user.Name, pq.Array(user.Roles)).
-		PlaceholderFormat(squirrel.Dollar).
-		Suffix("RETURNING id").
-		RunWith(r.db).
-		QueryRowContext(ctx)
-
-	user.ID = -1
-	err := query.Scan(&user.ID)
+	tx, err := r.db.BeginTx(ctx, nil)
 	if err != nil {
 		return err
 	}
 
-	return nil
+	query := squirrel.Insert(tableName).
+		Columns(columns[1:]...).
+		Values(user.Name, pq.Array(user.Roles)).
+		Suffix("RETURNING id").
+		PlaceholderFormat(squirrel.Dollar).
+		RunWith(tx)
+
+	err = query.QueryRowContext(ctx).Scan(&user.ID)
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	return tx.Commit()
 }
 
 func (r *repository) Update(ctx context.Context, user users.User) error {
-	result, err := squirrel.Update(tableName).
+	tx, err := r.db.BeginTx(ctx, nil)
+	if err != nil {
+		return err
+	}
+
+	query := squirrel.Update(tableName).
 		Set("name", user.Name).
 		Set("roles", pq.Array(user.Roles)).
 		Where(squirrel.Eq{"id": user.ID}).
 		PlaceholderFormat(squirrel.Dollar).
-		RunWith(r.db).
-		ExecContext(ctx)
+		RunWith(tx)
 
+	_, err = query.ExecContext(ctx)
 	if err != nil {
-		return err
-	}
-	_, err = result.RowsAffected()
-	if err != nil {
+		tx.Rollback()
 		return err
 	}
 
-	return nil
+	return tx.Commit()
 }
 
 func (r *repository) Get(ctx context.Context, userID int64) (*users.User, error) {
@@ -77,24 +82,25 @@ func (r *repository) Get(ctx context.Context, userID int64) (*users.User, error)
 		From(tableName).
 		Where(squirrel.Eq{"id": userID}).
 		PlaceholderFormat(squirrel.Dollar).
-		RunWith(r.db).
-		QueryRowContext(ctx)
+		RunWith(r.db)
 
-	var user users.User
-	err := query.Scan(&user.ID, &user.Name, pq.Array(&user.Roles))
+	row := query.QueryRowContext(ctx)
+	user := &users.User{}
+	err := row.Scan(&user.ID, &user.Name, pq.Array(&user.Roles))
 	if err != nil {
 		return nil, err
 	}
 
-	return &user, nil
+	return user, nil
 }
 
 func (r *repository) List(ctx context.Context) ([]users.User, error) {
-	rows, err := squirrel.Select(columns...).
+	query := squirrel.Select(columns...).
 		From(tableName).
 		PlaceholderFormat(squirrel.Dollar).
-		RunWith(r.db).
-		QueryContext(ctx)
+		RunWith(r.db)
+
+	rows, err := query.QueryContext(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -110,27 +116,25 @@ func (r *repository) List(ctx context.Context) ([]users.User, error) {
 		usersList = append(usersList, user)
 	}
 
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-
 	return usersList, nil
 }
 
 func (r *repository) Delete(ctx context.Context, userID int64) error {
-	result, err := squirrel.Delete(tableName).
+	tx, err := r.db.BeginTx(ctx, nil)
+	if err != nil {
+		return err
+	}
+
+	query := squirrel.Delete(tableName).
 		Where(squirrel.Eq{"id": userID}).
 		PlaceholderFormat(squirrel.Dollar).
-		RunWith(r.db).
-		ExecContext(ctx)
+		RunWith(tx)
 
+	_, err = query.ExecContext(ctx)
 	if err != nil {
-		return err
-	}
-	_, err = result.RowsAffected()
-	if err != nil {
+		tx.Rollback()
 		return err
 	}
 
-	return nil
+	return tx.Commit()
 }

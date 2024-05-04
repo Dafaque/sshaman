@@ -28,7 +28,8 @@ const (
 	RemoteCredentialsManager_UpdateUser_FullMethodName         = "/remote.RemoteCredentialsManager/UpdateUser"
 	RemoteCredentialsManager_DeleteUser_FullMethodName         = "/remote.RemoteCredentialsManager/DeleteUser"
 	RemoteCredentialsManager_ListUsers_FullMethodName          = "/remote.RemoteCredentialsManager/ListUsers"
-	RemoteCredentialsManager_AddRole_FullMethodName            = "/remote.RemoteCredentialsManager/AddRole"
+	RemoteCredentialsManager_CreateRole_FullMethodName         = "/remote.RemoteCredentialsManager/CreateRole"
+	RemoteCredentialsManager_UpdateRole_FullMethodName         = "/remote.RemoteCredentialsManager/UpdateRole"
 	RemoteCredentialsManager_DeleteRole_FullMethodName         = "/remote.RemoteCredentialsManager/DeleteRole"
 	RemoteCredentialsManager_ListRoles_FullMethodName          = "/remote.RemoteCredentialsManager/ListRoles"
 )
@@ -55,7 +56,8 @@ type RemoteCredentialsManagerClient interface {
 	// Lists all remote repository users
 	ListUsers(ctx context.Context, in *ListUsersRequest, opts ...grpc.CallOption) (*ListUsersResponse, error)
 	// Adds a new access role
-	AddRole(ctx context.Context, in *AddRoleRequest, opts ...grpc.CallOption) (*AddRoleResponse, error)
+	CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error)
+	UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error)
 	// Deletes an access role
 	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*DeleteRoleResponse, error)
 	// Lists all access roles
@@ -151,9 +153,18 @@ func (c *remoteCredentialsManagerClient) ListUsers(ctx context.Context, in *List
 	return out, nil
 }
 
-func (c *remoteCredentialsManagerClient) AddRole(ctx context.Context, in *AddRoleRequest, opts ...grpc.CallOption) (*AddRoleResponse, error) {
-	out := new(AddRoleResponse)
-	err := c.cc.Invoke(ctx, RemoteCredentialsManager_AddRole_FullMethodName, in, out, opts...)
+func (c *remoteCredentialsManagerClient) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error) {
+	out := new(CreateRoleResponse)
+	err := c.cc.Invoke(ctx, RemoteCredentialsManager_CreateRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *remoteCredentialsManagerClient) UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error) {
+	out := new(UpdateRoleResponse)
+	err := c.cc.Invoke(ctx, RemoteCredentialsManager_UpdateRole_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -200,7 +211,8 @@ type RemoteCredentialsManagerServer interface {
 	// Lists all remote repository users
 	ListUsers(context.Context, *ListUsersRequest) (*ListUsersResponse, error)
 	// Adds a new access role
-	AddRole(context.Context, *AddRoleRequest) (*AddRoleResponse, error)
+	CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error)
+	UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error)
 	// Deletes an access role
 	DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error)
 	// Lists all access roles
@@ -239,8 +251,11 @@ func (UnimplementedRemoteCredentialsManagerServer) DeleteUser(context.Context, *
 func (UnimplementedRemoteCredentialsManagerServer) ListUsers(context.Context, *ListUsersRequest) (*ListUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListUsers not implemented")
 }
-func (UnimplementedRemoteCredentialsManagerServer) AddRole(context.Context, *AddRoleRequest) (*AddRoleResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddRole not implemented")
+func (UnimplementedRemoteCredentialsManagerServer) CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
+}
+func (UnimplementedRemoteCredentialsManagerServer) UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
 }
 func (UnimplementedRemoteCredentialsManagerServer) DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
@@ -424,20 +439,38 @@ func _RemoteCredentialsManager_ListUsers_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RemoteCredentialsManager_AddRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddRoleRequest)
+func _RemoteCredentialsManager_CreateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRoleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RemoteCredentialsManagerServer).AddRole(ctx, in)
+		return srv.(RemoteCredentialsManagerServer).CreateRole(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: RemoteCredentialsManager_AddRole_FullMethodName,
+		FullMethod: RemoteCredentialsManager_CreateRole_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RemoteCredentialsManagerServer).AddRole(ctx, req.(*AddRoleRequest))
+		return srv.(RemoteCredentialsManagerServer).CreateRole(ctx, req.(*CreateRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RemoteCredentialsManager_UpdateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RemoteCredentialsManagerServer).UpdateRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RemoteCredentialsManager_UpdateRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RemoteCredentialsManagerServer).UpdateRole(ctx, req.(*UpdateRoleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -522,8 +555,12 @@ var RemoteCredentialsManager_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _RemoteCredentialsManager_ListUsers_Handler,
 		},
 		{
-			MethodName: "AddRole",
-			Handler:    _RemoteCredentialsManager_AddRole_Handler,
+			MethodName: "CreateRole",
+			Handler:    _RemoteCredentialsManager_CreateRole_Handler,
+		},
+		{
+			MethodName: "UpdateRole",
+			Handler:    _RemoteCredentialsManager_UpdateRole_Handler,
 		},
 		{
 			MethodName: "DeleteRole",

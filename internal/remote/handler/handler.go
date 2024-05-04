@@ -12,10 +12,10 @@ import (
 
 type server struct {
 	remote.UnimplementedRemoteCredentialsManagerServer
-	usersController users.UsersController
+	usersController users.Controller
 }
 
-func New(usersController users.UsersController) remote.RemoteCredentialsManagerServer {
+func New(usersController users.Controller) remote.RemoteCredentialsManagerServer {
 	return &server{
 		usersController: usersController,
 	}
@@ -44,19 +44,4 @@ func (s *server) DeleteCredential(ctx context.Context, req *remote.DeleteCredent
 func (s *server) DropAllCredentials(ctx context.Context, req *remote.DropAllCredentialsRequest) (*remote.DropAllCredentialsResponse, error) {
 	// Implementation logic to drop all credentials from the remote store
 	return nil, status.Errorf(codes.Unimplemented, "method DropAllCredentials not implemented")
-}
-
-func (s *server) AddRole(ctx context.Context, req *remote.AddRoleRequest) (*remote.AddRoleResponse, error) {
-	// Implementation logic to add a role
-	return nil, status.Errorf(codes.Unimplemented, "method AddRole not implemented")
-}
-
-func (s *server) DeleteRole(ctx context.Context, req *remote.DeleteRoleRequest) (*remote.DeleteRoleResponse, error) {
-	// Implementation logic to delete a role
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
-}
-
-func (s *server) ListRoles(ctx context.Context, req *remote.ListRolesRequest) (*remote.ListRolesResponse, error) {
-	// Implementation logic to list roles
-	return nil, status.Errorf(codes.Unimplemented, "method ListRoles not implemented")
 }
