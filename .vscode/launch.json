@@ -200,6 +200,17 @@
             "env": {
                 "SSHAMAN_HOME": "${workspaceFolder}/"
             },
+        },{ // MARK: - Server
+            "name": "Start server",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/cmd/remote",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/remote/",
+            "args": [
+                "-config", "${workspaceFolder}/config.yaml"
+            ]
         }
     ]
 }

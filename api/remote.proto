@@ -1,0 +1,182 @@
+syntax = "proto3";
+
+package remote;
+
+option go_package = "github.com/Dafaque/sshaman/pkg/remote";
+
+
+// RemoteCredentialsManager service definition
+service RemoteCredentialsManager {
+    // Retrieves a single credential based on alias
+    rpc GetCredential (GetCredentialRequest) returns (Credential);
+
+    // Adds a new credential to the remote store
+    rpc SetCredential (SetCredentialRequest) returns (SetCredentialResponse);
+
+    // Lists all credentials stored remotely
+    rpc ListCredentials (ListCredentialsRequest) returns (ListCredentialsResponse);
+
+    // Removes a credential from the remote store
+    rpc DeleteCredential (DeleteCredentialRequest) returns (DeleteCredentialResponse);
+
+    // Drops all credentials from the remote store
+    rpc DropAllCredentials (DropAllCredentialsRequest) returns (DropAllCredentialsResponse);
+
+    // Registers a new remote repository user
+    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+
+    rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
+
+    // Deletes a remote repository user
+    rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
+
+    // Lists all remote repository users
+    rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
+
+    // Adds a new access role
+    rpc AddRole (AddRoleRequest) returns (AddRoleResponse);
+
+    // Deletes an access role
+    rpc DeleteRole (DeleteRoleRequest) returns (DeleteRoleResponse);
+
+    // Lists all access roles
+    rpc ListRoles (ListRolesRequest) returns (ListRolesResponse);
+}
+
+// Credential message structure
+message Credential {
+    string alias = 1;
+    string host = 2;
+    int32 port = 3;
+    string username = 4;
+    string source = 5; // e.g., "remote"
+}
+  
+// Request message for getting a single credential
+message GetCredentialRequest {
+    string alias = 1;
+}
+
+// Request message for setting a single credential
+message SetCredentialRequest {
+    Credential credential = 1;
+    bool force = 2;
+}
+
+// Response message for adding a credential
+message SetCredentialResponse {
+    bool success = 1;
+}
+
+// Request message for listing credentials
+message ListCredentialsRequest {}
+
+// Response message for listing credentials
+message ListCredentialsResponse {
+  repeated Credential credentials = 1;
+}
+
+// Request message for removing a credential
+message DeleteCredentialRequest {
+  string alias = 1;
+}
+
+// Response message for removing a credential
+message DeleteCredentialResponse {
+  bool success = 1;
+}
+
+// Request message for dropping all credentials
+message DropAllCredentialsRequest {}
+
+// Response message for dropping all credentials
+message DropAllCredentialsResponse {
+  bool success = 1;
+}
+
+// User model
+message User {
+    int64 id = 1;
+    string name = 2;
+    string token = 3;
+    repeated string roles = 4;
+}
+
+// Request message for adding a user
+message CreateUserRequest {
+    User user = 1;
+}
+
+// Response message for adding a user
+message CreateUserResponse {
+    bool success = 1;
+}
+
+// Request message for updating a user
+message UpdateUserRequest {
+    User user = 1;
+}
+
+// Response message for updating a user
+message UpdateUserResponse {
+    bool success = 1;
+}
+
+// Request message for deleting a user
+message DeleteUserRequest {
+    int64 id = 1;
+}
+
+// Response message for deleting a user
+message DeleteUserResponse {
+    bool success = 1;
+}
+
+// Request message for listing users
+message ListUsersRequest {}
+
+// Response message for listing users
+message ListUsersResponse {
+    repeated User users = 1;
+}
+
+// Role model
+message Role {
+    string name = 1;
+    string description = 2;
+    bool read = 3;
+    bool write = 4;
+    bool delete = 5;
+    bool overwrite = 6;
+    bool su = 7;
+    repeated string spaces = 8;
+}
+
+// Request message for adding a role
+message AddRoleRequest {
+    Role role = 1;
+}
+
+// Response message for adding a role
+message AddRoleResponse {
+    bool success = 1;
+}
+
+// Request message for deleting a role
+message DeleteRoleRequest {
+    string name = 1;
+}
+
+// Response message for deleting a role
+message DeleteRoleResponse {
+    bool success = 1;
+}
+
+// Request message for listing roles
+message ListRolesRequest {}
+
+// Response message for listing roles
+message ListRolesResponse {
+    repeated Role roles = 1;
+}
+
