@@ -10,8 +10,8 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 
-	"github.com/Dafaque/sshaman/internal/remote/controllers/roles"
-	"github.com/Dafaque/sshaman/internal/remote/controllers/users"
+	"github.com/Dafaque/sshaman/internal/server/controllers/roles"
+	"github.com/Dafaque/sshaman/internal/server/controllers/users"
 )
 
 type GRPCAuthInterceptor struct {

@@ -2,12 +2,13 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.24.4
-// source: api/remote.proto
+// source: api/server.proto
 
-package remote
+package server
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -19,19 +20,19 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	RemoteCredentialsManager_GetCredential_FullMethodName      = "/remote.RemoteCredentialsManager/GetCredential"
-	RemoteCredentialsManager_SetCredential_FullMethodName      = "/remote.RemoteCredentialsManager/SetCredential"
-	RemoteCredentialsManager_ListCredentials_FullMethodName    = "/remote.RemoteCredentialsManager/ListCredentials"
-	RemoteCredentialsManager_DeleteCredential_FullMethodName   = "/remote.RemoteCredentialsManager/DeleteCredential"
-	RemoteCredentialsManager_DropAllCredentials_FullMethodName = "/remote.RemoteCredentialsManager/DropAllCredentials"
-	RemoteCredentialsManager_CreateUser_FullMethodName         = "/remote.RemoteCredentialsManager/CreateUser"
-	RemoteCredentialsManager_UpdateUser_FullMethodName         = "/remote.RemoteCredentialsManager/UpdateUser"
-	RemoteCredentialsManager_DeleteUser_FullMethodName         = "/remote.RemoteCredentialsManager/DeleteUser"
-	RemoteCredentialsManager_ListUsers_FullMethodName          = "/remote.RemoteCredentialsManager/ListUsers"
-	RemoteCredentialsManager_CreateRole_FullMethodName         = "/remote.RemoteCredentialsManager/CreateRole"
-	RemoteCredentialsManager_UpdateRole_FullMethodName         = "/remote.RemoteCredentialsManager/UpdateRole"
-	RemoteCredentialsManager_DeleteRole_FullMethodName         = "/remote.RemoteCredentialsManager/DeleteRole"
-	RemoteCredentialsManager_ListRoles_FullMethodName          = "/remote.RemoteCredentialsManager/ListRoles"
+	RemoteCredentialsManager_GetCredential_FullMethodName      = "/server.RemoteCredentialsManager/GetCredential"
+	RemoteCredentialsManager_SetCredential_FullMethodName      = "/server.RemoteCredentialsManager/SetCredential"
+	RemoteCredentialsManager_ListCredentials_FullMethodName    = "/server.RemoteCredentialsManager/ListCredentials"
+	RemoteCredentialsManager_DeleteCredential_FullMethodName   = "/server.RemoteCredentialsManager/DeleteCredential"
+	RemoteCredentialsManager_DropAllCredentials_FullMethodName = "/server.RemoteCredentialsManager/DropAllCredentials"
+	RemoteCredentialsManager_CreateUser_FullMethodName         = "/server.RemoteCredentialsManager/CreateUser"
+	RemoteCredentialsManager_UpdateUser_FullMethodName         = "/server.RemoteCredentialsManager/UpdateUser"
+	RemoteCredentialsManager_DeleteUser_FullMethodName         = "/server.RemoteCredentialsManager/DeleteUser"
+	RemoteCredentialsManager_ListUsers_FullMethodName          = "/server.RemoteCredentialsManager/ListUsers"
+	RemoteCredentialsManager_CreateRole_FullMethodName         = "/server.RemoteCredentialsManager/CreateRole"
+	RemoteCredentialsManager_UpdateRole_FullMethodName         = "/server.RemoteCredentialsManager/UpdateRole"
+	RemoteCredentialsManager_DeleteRole_FullMethodName         = "/server.RemoteCredentialsManager/DeleteRole"
+	RemoteCredentialsManager_ListRoles_FullMethodName          = "/server.RemoteCredentialsManager/ListRoles"
 )
 
 // RemoteCredentialsManagerClient is the client API for RemoteCredentialsManager service.
@@ -515,7 +516,7 @@ func _RemoteCredentialsManager_ListRoles_Handler(srv interface{}, ctx context.Co
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var RemoteCredentialsManager_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "remote.RemoteCredentialsManager",
+	ServiceName: "server.RemoteCredentialsManager",
 	HandlerType: (*RemoteCredentialsManagerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -572,5 +573,5 @@ var RemoteCredentialsManager_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "api/remote.proto",
+	Metadata: "api/server.proto",
 }

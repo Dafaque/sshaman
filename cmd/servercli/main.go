@@ -8,8 +8,8 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	"github.com/Dafaque/sshaman/internal/remote/auth"
-	remote "github.com/Dafaque/sshaman/pkg/remote/api"
+	"github.com/Dafaque/sshaman/internal/server/auth"
+	api "github.com/Dafaque/sshaman/pkg/server/api"
 )
 
 const (
@@ -28,14 +28,14 @@ func main() {
 	}
 	defer conn.Close()
 
-	client := remote.NewRemoteCredentialsManagerClient(conn)
+	client := api.NewRemoteCredentialsManagerClient(conn)
 
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
 	// Example call to ListRoles
-	r, err := client.ListRoles(ctx, &remote.ListRolesRequest{})
+	r, err := client.ListRoles(ctx, &api.ListRolesRequest{})
 	if err != nil {
 		log.Fatalf("could not list roles: %v", err)
 	}

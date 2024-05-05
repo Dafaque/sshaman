@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> {} }:
 let 
-    protoFiles = "api/remote.proto";
-    outputDir = "./pkg/remote";
+    protoFiles = "api/server.proto";
+    outputDir = "./pkg/server";
 in
 pkgs.mkShell {
   buildInputs = [

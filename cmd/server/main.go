@@ -12,16 +12,16 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/Dafaque/sshaman/internal/remote/auth"
-	"github.com/Dafaque/sshaman/internal/remote/config"
-	"github.com/Dafaque/sshaman/internal/remote/controllers/roles"
-	"github.com/Dafaque/sshaman/internal/remote/controllers/users"
-	"github.com/Dafaque/sshaman/internal/remote/db"
-	_ "github.com/Dafaque/sshaman/internal/remote/db/migrations"
-	"github.com/Dafaque/sshaman/internal/remote/handler"
-	rolesRepo "github.com/Dafaque/sshaman/internal/remote/repositories/roles"
-	usersRepo "github.com/Dafaque/sshaman/internal/remote/repositories/users"
-	remote "github.com/Dafaque/sshaman/pkg/remote/api"
+	"github.com/Dafaque/sshaman/internal/server/auth"
+	"github.com/Dafaque/sshaman/internal/server/config"
+	"github.com/Dafaque/sshaman/internal/server/controllers/roles"
+	"github.com/Dafaque/sshaman/internal/server/controllers/users"
+	"github.com/Dafaque/sshaman/internal/server/db"
+	_ "github.com/Dafaque/sshaman/internal/server/db/migrations"
+	"github.com/Dafaque/sshaman/internal/server/handler"
+	rolesRepo "github.com/Dafaque/sshaman/internal/server/repositories/roles"
+	usersRepo "github.com/Dafaque/sshaman/internal/server/repositories/users"
+	api "github.com/Dafaque/sshaman/pkg/server/api"
 )
 
 var configFile = flag.String("config", "config.yaml", "Path to the configuration file")
@@ -101,7 +101,7 @@ func main() {
 		usersController,
 		rolesController,
 	)
-	remote.RegisterRemoteCredentialsManagerServer(s, handler)
+	api.RegisterRemoteCredentialsManagerServer(s, handler)
 	reflection.Register(s)
 
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", cfg.Server.Port))

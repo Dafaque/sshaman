@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/Dafaque/sshaman/internal/remote/config"
+	"github.com/Dafaque/sshaman/internal/server/config"
 )
 
 func New(cfg *config.Config) (*sql.DB, error) {

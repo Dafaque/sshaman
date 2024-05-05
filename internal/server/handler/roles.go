@@ -7,26 +7,26 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/Dafaque/sshaman/internal/remote/errs"
-	remote "github.com/Dafaque/sshaman/pkg/remote/api"
+	"github.com/Dafaque/sshaman/internal/server/errs"
+	api "github.com/Dafaque/sshaman/pkg/server/api"
 )
 
-func (s *server) CreateRole(ctx context.Context, req *remote.CreateRoleRequest) (*remote.CreateRoleResponse, error) {
+func (s *server) CreateRole(ctx context.Context, req *api.CreateRoleRequest) (*api.CreateRoleResponse, error) {
 	// Implementation logic to add a role
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
 }
 
-func (s *server) UpdateRole(ctx context.Context, req *remote.UpdateRoleRequest) (*remote.UpdateRoleResponse, error) {
+func (s *server) UpdateRole(ctx context.Context, req *api.UpdateRoleRequest) (*api.UpdateRoleResponse, error) {
 	// Implementation logic to update a role
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
 }
 
-func (s *server) DeleteRole(ctx context.Context, req *remote.DeleteRoleRequest) (*remote.DeleteRoleResponse, error) {
+func (s *server) DeleteRole(ctx context.Context, req *api.DeleteRoleRequest) (*api.DeleteRoleResponse, error) {
 	// Implementation logic to delete a role
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
 }
 
-func (s *server) ListRoles(ctx context.Context, req *remote.ListRolesRequest) (*remote.ListRolesResponse, error) {
+func (s *server) ListRoles(ctx context.Context, req *api.ListRolesRequest) (*api.ListRolesResponse, error) {
 	roles, err := s.rolesController.List(ctx)
 	if err != nil {
 		if errors.Is(err, errs.ErrNotPermitted) {
@@ -35,10 +35,10 @@ func (s *server) ListRoles(ctx context.Context, req *remote.ListRolesRequest) (*
 		return nil, status.Errorf(codes.Internal, err.Error())
 	}
 
-	var resp remote.ListRolesResponse
+	var resp api.ListRolesResponse
 
 	for _, role := range roles {
-		resp.Roles = append(resp.Roles, &remote.Role{
+		resp.Roles = append(resp.Roles, &api.Role{
 			Id:          role.ID,
 			Name:        role.Name,
 			Description: role.Description,

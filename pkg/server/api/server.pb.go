@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.33.0
 // 	protoc        v4.24.4
-// source: api/remote.proto
+// source: api/server.proto
 
-package remote
+package server
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -36,7 +36,7 @@ type Credential struct {
 func (x *Credential) Reset() {
 	*x = Credential{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[0]
+		mi := &file_api_server_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -49,7 +49,7 @@ func (x *Credential) String() string {
 func (*Credential) ProtoMessage() {}
 
 func (x *Credential) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[0]
+	mi := &file_api_server_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -62,7 +62,7 @@ func (x *Credential) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Credential.ProtoReflect.Descriptor instead.
 func (*Credential) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{0}
+	return file_api_server_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *Credential) GetAlias() string {
@@ -112,7 +112,7 @@ type GetCredentialRequest struct {
 func (x *GetCredentialRequest) Reset() {
 	*x = GetCredentialRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[1]
+		mi := &file_api_server_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -125,7 +125,7 @@ func (x *GetCredentialRequest) String() string {
 func (*GetCredentialRequest) ProtoMessage() {}
 
 func (x *GetCredentialRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[1]
+	mi := &file_api_server_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -138,7 +138,7 @@ func (x *GetCredentialRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCredentialRequest.ProtoReflect.Descriptor instead.
 func (*GetCredentialRequest) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{1}
+	return file_api_server_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *GetCredentialRequest) GetAlias() string {
@@ -161,7 +161,7 @@ type SetCredentialRequest struct {
 func (x *SetCredentialRequest) Reset() {
 	*x = SetCredentialRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[2]
+		mi := &file_api_server_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -174,7 +174,7 @@ func (x *SetCredentialRequest) String() string {
 func (*SetCredentialRequest) ProtoMessage() {}
 
 func (x *SetCredentialRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[2]
+	mi := &file_api_server_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -187,7 +187,7 @@ func (x *SetCredentialRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetCredentialRequest.ProtoReflect.Descriptor instead.
 func (*SetCredentialRequest) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{2}
+	return file_api_server_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *SetCredentialRequest) GetCredential() *Credential {
@@ -216,7 +216,7 @@ type SetCredentialResponse struct {
 func (x *SetCredentialResponse) Reset() {
 	*x = SetCredentialResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[3]
+		mi := &file_api_server_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -229,7 +229,7 @@ func (x *SetCredentialResponse) String() string {
 func (*SetCredentialResponse) ProtoMessage() {}
 
 func (x *SetCredentialResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[3]
+	mi := &file_api_server_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -242,7 +242,7 @@ func (x *SetCredentialResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetCredentialResponse.ProtoReflect.Descriptor instead.
 func (*SetCredentialResponse) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{3}
+	return file_api_server_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *SetCredentialResponse) GetSuccess() bool {
@@ -262,7 +262,7 @@ type ListCredentialsRequest struct {
 func (x *ListCredentialsRequest) Reset() {
 	*x = ListCredentialsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[4]
+		mi := &file_api_server_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -275,7 +275,7 @@ func (x *ListCredentialsRequest) String() string {
 func (*ListCredentialsRequest) ProtoMessage() {}
 
 func (x *ListCredentialsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[4]
+	mi := &file_api_server_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -288,7 +288,7 @@ func (x *ListCredentialsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListCredentialsRequest.ProtoReflect.Descriptor instead.
 func (*ListCredentialsRequest) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{4}
+	return file_api_server_proto_rawDescGZIP(), []int{4}
 }
 
 // Response message for listing credentials
@@ -303,7 +303,7 @@ type ListCredentialsResponse struct {
 func (x *ListCredentialsResponse) Reset() {
 	*x = ListCredentialsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[5]
+		mi := &file_api_server_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -316,7 +316,7 @@ func (x *ListCredentialsResponse) String() string {
 func (*ListCredentialsResponse) ProtoMessage() {}
 
 func (x *ListCredentialsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[5]
+	mi := &file_api_server_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -329,7 +329,7 @@ func (x *ListCredentialsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListCredentialsResponse.ProtoReflect.Descriptor instead.
 func (*ListCredentialsResponse) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{5}
+	return file_api_server_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *ListCredentialsResponse) GetCredentials() []*Credential {
@@ -351,7 +351,7 @@ type DeleteCredentialRequest struct {
 func (x *DeleteCredentialRequest) Reset() {
 	*x = DeleteCredentialRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[6]
+		mi := &file_api_server_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -364,7 +364,7 @@ func (x *DeleteCredentialRequest) String() string {
 func (*DeleteCredentialRequest) ProtoMessage() {}
 
 func (x *DeleteCredentialRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[6]
+	mi := &file_api_server_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -377,7 +377,7 @@ func (x *DeleteCredentialRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteCredentialRequest.ProtoReflect.Descriptor instead.
 func (*DeleteCredentialRequest) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{6}
+	return file_api_server_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *DeleteCredentialRequest) GetAlias() string {
@@ -399,7 +399,7 @@ type DeleteCredentialResponse struct {
 func (x *DeleteCredentialResponse) Reset() {
 	*x = DeleteCredentialResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[7]
+		mi := &file_api_server_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -412,7 +412,7 @@ func (x *DeleteCredentialResponse) String() string {
 func (*DeleteCredentialResponse) ProtoMessage() {}
 
 func (x *DeleteCredentialResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[7]
+	mi := &file_api_server_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -425,7 +425,7 @@ func (x *DeleteCredentialResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteCredentialResponse.ProtoReflect.Descriptor instead.
 func (*DeleteCredentialResponse) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{7}
+	return file_api_server_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *DeleteCredentialResponse) GetSuccess() bool {
@@ -445,7 +445,7 @@ type DropAllCredentialsRequest struct {
 func (x *DropAllCredentialsRequest) Reset() {
 	*x = DropAllCredentialsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[8]
+		mi := &file_api_server_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -458,7 +458,7 @@ func (x *DropAllCredentialsRequest) String() string {
 func (*DropAllCredentialsRequest) ProtoMessage() {}
 
 func (x *DropAllCredentialsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[8]
+	mi := &file_api_server_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -471,7 +471,7 @@ func (x *DropAllCredentialsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DropAllCredentialsRequest.ProtoReflect.Descriptor instead.
 func (*DropAllCredentialsRequest) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{8}
+	return file_api_server_proto_rawDescGZIP(), []int{8}
 }
 
 // Response message for dropping all credentials
@@ -486,7 +486,7 @@ type DropAllCredentialsResponse struct {
 func (x *DropAllCredentialsResponse) Reset() {
 	*x = DropAllCredentialsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[9]
+		mi := &file_api_server_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -499,7 +499,7 @@ func (x *DropAllCredentialsResponse) String() string {
 func (*DropAllCredentialsResponse) ProtoMessage() {}
 
 func (x *DropAllCredentialsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[9]
+	mi := &file_api_server_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -512,7 +512,7 @@ func (x *DropAllCredentialsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DropAllCredentialsResponse.ProtoReflect.Descriptor instead.
 func (*DropAllCredentialsResponse) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{9}
+	return file_api_server_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *DropAllCredentialsResponse) GetSuccess() bool {
@@ -537,7 +537,7 @@ type User struct {
 func (x *User) Reset() {
 	*x = User{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[10]
+		mi := &file_api_server_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -550,7 +550,7 @@ func (x *User) String() string {
 func (*User) ProtoMessage() {}
 
 func (x *User) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[10]
+	mi := &file_api_server_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -563,7 +563,7 @@ func (x *User) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use User.ProtoReflect.Descriptor instead.
 func (*User) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{10}
+	return file_api_server_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *User) GetId() int64 {
@@ -606,7 +606,7 @@ type CreateUserRequest struct {
 func (x *CreateUserRequest) Reset() {
 	*x = CreateUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[11]
+		mi := &file_api_server_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -619,7 +619,7 @@ func (x *CreateUserRequest) String() string {
 func (*CreateUserRequest) ProtoMessage() {}
 
 func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[11]
+	mi := &file_api_server_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -632,7 +632,7 @@ func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserRequest.ProtoReflect.Descriptor instead.
 func (*CreateUserRequest) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{11}
+	return file_api_server_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *CreateUserRequest) GetUser() *User {
@@ -654,7 +654,7 @@ type CreateUserResponse struct {
 func (x *CreateUserResponse) Reset() {
 	*x = CreateUserResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[12]
+		mi := &file_api_server_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -667,7 +667,7 @@ func (x *CreateUserResponse) String() string {
 func (*CreateUserResponse) ProtoMessage() {}
 
 func (x *CreateUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[12]
+	mi := &file_api_server_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -680,7 +680,7 @@ func (x *CreateUserResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserResponse.ProtoReflect.Descriptor instead.
 func (*CreateUserResponse) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{12}
+	return file_api_server_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *CreateUserResponse) GetSuccess() bool {
@@ -702,7 +702,7 @@ type UpdateUserRequest struct {
 func (x *UpdateUserRequest) Reset() {
 	*x = UpdateUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[13]
+		mi := &file_api_server_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -715,7 +715,7 @@ func (x *UpdateUserRequest) String() string {
 func (*UpdateUserRequest) ProtoMessage() {}
 
 func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[13]
+	mi := &file_api_server_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -728,7 +728,7 @@ func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUserRequest.ProtoReflect.Descriptor instead.
 func (*UpdateUserRequest) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{13}
+	return file_api_server_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *UpdateUserRequest) GetUser() *User {
@@ -750,7 +750,7 @@ type UpdateUserResponse struct {
 func (x *UpdateUserResponse) Reset() {
 	*x = UpdateUserResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[14]
+		mi := &file_api_server_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -763,7 +763,7 @@ func (x *UpdateUserResponse) String() string {
 func (*UpdateUserResponse) ProtoMessage() {}
 
 func (x *UpdateUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[14]
+	mi := &file_api_server_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -776,7 +776,7 @@ func (x *UpdateUserResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUserResponse.ProtoReflect.Descriptor instead.
 func (*UpdateUserResponse) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{14}
+	return file_api_server_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *UpdateUserResponse) GetSuccess() bool {
@@ -798,7 +798,7 @@ type DeleteUserRequest struct {
 func (x *DeleteUserRequest) Reset() {
 	*x = DeleteUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[15]
+		mi := &file_api_server_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -811,7 +811,7 @@ func (x *DeleteUserRequest) String() string {
 func (*DeleteUserRequest) ProtoMessage() {}
 
 func (x *DeleteUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[15]
+	mi := &file_api_server_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -824,7 +824,7 @@ func (x *DeleteUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteUserRequest.ProtoReflect.Descriptor instead.
 func (*DeleteUserRequest) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{15}
+	return file_api_server_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *DeleteUserRequest) GetId() int64 {
@@ -846,7 +846,7 @@ type DeleteUserResponse struct {
 func (x *DeleteUserResponse) Reset() {
 	*x = DeleteUserResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[16]
+		mi := &file_api_server_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -859,7 +859,7 @@ func (x *DeleteUserResponse) String() string {
 func (*DeleteUserResponse) ProtoMessage() {}
 
 func (x *DeleteUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[16]
+	mi := &file_api_server_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -872,7 +872,7 @@ func (x *DeleteUserResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteUserResponse.ProtoReflect.Descriptor instead.
 func (*DeleteUserResponse) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{16}
+	return file_api_server_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *DeleteUserResponse) GetSuccess() bool {
@@ -892,7 +892,7 @@ type ListUsersRequest struct {
 func (x *ListUsersRequest) Reset() {
 	*x = ListUsersRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[17]
+		mi := &file_api_server_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -905,7 +905,7 @@ func (x *ListUsersRequest) String() string {
 func (*ListUsersRequest) ProtoMessage() {}
 
 func (x *ListUsersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[17]
+	mi := &file_api_server_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -918,7 +918,7 @@ func (x *ListUsersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListUsersRequest.ProtoReflect.Descriptor instead.
 func (*ListUsersRequest) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{17}
+	return file_api_server_proto_rawDescGZIP(), []int{17}
 }
 
 // Response message for listing users
@@ -933,7 +933,7 @@ type ListUsersResponse struct {
 func (x *ListUsersResponse) Reset() {
 	*x = ListUsersResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[18]
+		mi := &file_api_server_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -946,7 +946,7 @@ func (x *ListUsersResponse) String() string {
 func (*ListUsersResponse) ProtoMessage() {}
 
 func (x *ListUsersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[18]
+	mi := &file_api_server_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -959,7 +959,7 @@ func (x *ListUsersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListUsersResponse.ProtoReflect.Descriptor instead.
 func (*ListUsersResponse) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{18}
+	return file_api_server_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *ListUsersResponse) GetUsers() []*User {
@@ -989,7 +989,7 @@ type Role struct {
 func (x *Role) Reset() {
 	*x = Role{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[19]
+		mi := &file_api_server_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1002,7 +1002,7 @@ func (x *Role) String() string {
 func (*Role) ProtoMessage() {}
 
 func (x *Role) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[19]
+	mi := &file_api_server_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1015,7 +1015,7 @@ func (x *Role) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Role.ProtoReflect.Descriptor instead.
 func (*Role) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{19}
+	return file_api_server_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *Role) GetId() int64 {
@@ -1093,7 +1093,7 @@ type CreateRoleRequest struct {
 func (x *CreateRoleRequest) Reset() {
 	*x = CreateRoleRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[20]
+		mi := &file_api_server_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1106,7 +1106,7 @@ func (x *CreateRoleRequest) String() string {
 func (*CreateRoleRequest) ProtoMessage() {}
 
 func (x *CreateRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[20]
+	mi := &file_api_server_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1119,7 +1119,7 @@ func (x *CreateRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateRoleRequest.ProtoReflect.Descriptor instead.
 func (*CreateRoleRequest) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{20}
+	return file_api_server_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *CreateRoleRequest) GetRole() *Role {
@@ -1141,7 +1141,7 @@ type CreateRoleResponse struct {
 func (x *CreateRoleResponse) Reset() {
 	*x = CreateRoleResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[21]
+		mi := &file_api_server_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1154,7 +1154,7 @@ func (x *CreateRoleResponse) String() string {
 func (*CreateRoleResponse) ProtoMessage() {}
 
 func (x *CreateRoleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[21]
+	mi := &file_api_server_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1167,7 +1167,7 @@ func (x *CreateRoleResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateRoleResponse.ProtoReflect.Descriptor instead.
 func (*CreateRoleResponse) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{21}
+	return file_api_server_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *CreateRoleResponse) GetSuccess() bool {
@@ -1188,7 +1188,7 @@ type UpdateRoleRequest struct {
 func (x *UpdateRoleRequest) Reset() {
 	*x = UpdateRoleRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[22]
+		mi := &file_api_server_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1201,7 +1201,7 @@ func (x *UpdateRoleRequest) String() string {
 func (*UpdateRoleRequest) ProtoMessage() {}
 
 func (x *UpdateRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[22]
+	mi := &file_api_server_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1214,7 +1214,7 @@ func (x *UpdateRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateRoleRequest.ProtoReflect.Descriptor instead.
 func (*UpdateRoleRequest) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{22}
+	return file_api_server_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *UpdateRoleRequest) GetRole() *Role {
@@ -1235,7 +1235,7 @@ type UpdateRoleResponse struct {
 func (x *UpdateRoleResponse) Reset() {
 	*x = UpdateRoleResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[23]
+		mi := &file_api_server_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1248,7 +1248,7 @@ func (x *UpdateRoleResponse) String() string {
 func (*UpdateRoleResponse) ProtoMessage() {}
 
 func (x *UpdateRoleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[23]
+	mi := &file_api_server_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1261,7 +1261,7 @@ func (x *UpdateRoleResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateRoleResponse.ProtoReflect.Descriptor instead.
 func (*UpdateRoleResponse) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{23}
+	return file_api_server_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *UpdateRoleResponse) GetSuccess() bool {
@@ -1283,7 +1283,7 @@ type DeleteRoleRequest struct {
 func (x *DeleteRoleRequest) Reset() {
 	*x = DeleteRoleRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[24]
+		mi := &file_api_server_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1296,7 +1296,7 @@ func (x *DeleteRoleRequest) String() string {
 func (*DeleteRoleRequest) ProtoMessage() {}
 
 func (x *DeleteRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[24]
+	mi := &file_api_server_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1309,7 +1309,7 @@ func (x *DeleteRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteRoleRequest.ProtoReflect.Descriptor instead.
 func (*DeleteRoleRequest) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{24}
+	return file_api_server_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *DeleteRoleRequest) GetId() int64 {
@@ -1331,7 +1331,7 @@ type DeleteRoleResponse struct {
 func (x *DeleteRoleResponse) Reset() {
 	*x = DeleteRoleResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[25]
+		mi := &file_api_server_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1344,7 +1344,7 @@ func (x *DeleteRoleResponse) String() string {
 func (*DeleteRoleResponse) ProtoMessage() {}
 
 func (x *DeleteRoleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[25]
+	mi := &file_api_server_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1357,7 +1357,7 @@ func (x *DeleteRoleResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteRoleResponse.ProtoReflect.Descriptor instead.
 func (*DeleteRoleResponse) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{25}
+	return file_api_server_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *DeleteRoleResponse) GetSuccess() bool {
@@ -1377,7 +1377,7 @@ type ListRolesRequest struct {
 func (x *ListRolesRequest) Reset() {
 	*x = ListRolesRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[26]
+		mi := &file_api_server_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1390,7 +1390,7 @@ func (x *ListRolesRequest) String() string {
 func (*ListRolesRequest) ProtoMessage() {}
 
 func (x *ListRolesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[26]
+	mi := &file_api_server_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1403,7 +1403,7 @@ func (x *ListRolesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListRolesRequest.ProtoReflect.Descriptor instead.
 func (*ListRolesRequest) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{26}
+	return file_api_server_proto_rawDescGZIP(), []int{26}
 }
 
 // Response message for listing roles
@@ -1418,7 +1418,7 @@ type ListRolesResponse struct {
 func (x *ListRolesResponse) Reset() {
 	*x = ListRolesResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_remote_proto_msgTypes[27]
+		mi := &file_api_server_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1431,7 +1431,7 @@ func (x *ListRolesResponse) String() string {
 func (*ListRolesResponse) ProtoMessage() {}
 
 func (x *ListRolesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_remote_proto_msgTypes[27]
+	mi := &file_api_server_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1444,7 +1444,7 @@ func (x *ListRolesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListRolesResponse.ProtoReflect.Descriptor instead.
 func (*ListRolesResponse) Descriptor() ([]byte, []int) {
-	return file_api_remote_proto_rawDescGZIP(), []int{27}
+	return file_api_server_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *ListRolesResponse) GetRoles() []*Role {
@@ -1454,11 +1454,11 @@ func (x *ListRolesResponse) GetRoles() []*Role {
 	return nil
 }
 
-var File_api_remote_proto protoreflect.FileDescriptor
+var File_api_server_proto protoreflect.FileDescriptor
 
-var file_api_remote_proto_rawDesc = []byte{
-	0x0a, 0x10, 0x61, 0x70, 0x69, 0x2f, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x12, 0x06, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x22, 0x7e, 0x0a, 0x0a, 0x43, 0x72,
+var file_api_server_proto_rawDesc = []byte{
+	0x0a, 0x10, 0x61, 0x70, 0x69, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x12, 0x06, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x22, 0x7e, 0x0a, 0x0a, 0x43, 0x72,
 	0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x12, 0x14, 0x0a, 0x05, 0x61, 0x6c, 0x69, 0x61,
 	0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x61, 0x6c, 0x69, 0x61, 0x73, 0x12, 0x12,
 	0x0a, 0x04, 0x68, 0x6f, 0x73, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x68, 0x6f,
@@ -1472,7 +1472,7 @@ var file_api_remote_proto_rawDesc = []byte{
 	0x09, 0x52, 0x05, 0x61, 0x6c, 0x69, 0x61, 0x73, 0x22, 0x60, 0x0a, 0x14, 0x53, 0x65, 0x74, 0x43,
 	0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
 	0x12, 0x32, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x43, 0x72,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x43, 0x72,
 	0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x52, 0x0a, 0x63, 0x72, 0x65, 0x64, 0x65, 0x6e,
 	0x74, 0x69, 0x61, 0x6c, 0x12, 0x14, 0x0a, 0x05, 0x66, 0x6f, 0x72, 0x63, 0x65, 0x18, 0x02, 0x20,
 	0x01, 0x28, 0x08, 0x52, 0x05, 0x66, 0x6f, 0x72, 0x63, 0x65, 0x22, 0x31, 0x0a, 0x15, 0x53, 0x65,
@@ -1483,7 +1483,7 @@ var file_api_remote_proto_rawDesc = []byte{
 	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x4f, 0x0a, 0x17, 0x4c, 0x69, 0x73, 0x74, 0x43,
 	0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
 	0x73, 0x65, 0x12, 0x34, 0x0a, 0x0b, 0x63, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c,
-	0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65,
+	0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72,
 	0x2e, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x52, 0x0b, 0x63, 0x72, 0x65,
 	0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x22, 0x2f, 0x0a, 0x17, 0x44, 0x65, 0x6c, 0x65,
 	0x74, 0x65, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x52, 0x65, 0x71, 0x75,
@@ -1505,13 +1505,13 @@ var file_api_remote_proto_rawDesc = []byte{
 	0x04, 0x20, 0x03, 0x28, 0x03, 0x52, 0x05, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x22, 0x35, 0x0a, 0x11,
 	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
 	0x74, 0x12, 0x20, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x0c, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x75,
+	0x0c, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x75,
 	0x73, 0x65, 0x72, 0x22, 0x2e, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65,
 	0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x73, 0x75, 0x63,
 	0x63, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x73, 0x75, 0x63, 0x63,
 	0x65, 0x73, 0x73, 0x22, 0x35, 0x0a, 0x11, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65,
 	0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x20, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e,
 	0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x75, 0x73, 0x65, 0x72, 0x22, 0x2e, 0x0a, 0x12, 0x55, 0x70,
 	0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
 	0x12, 0x18, 0x0a, 0x07, 0x73, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28,
@@ -1524,7 +1524,7 @@ var file_api_remote_proto_rawDesc = []byte{
 	0x12, 0x0a, 0x10, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72, 0x73, 0x52, 0x65, 0x71, 0x75,
 	0x65, 0x73, 0x74, 0x22, 0x37, 0x0a, 0x11, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72, 0x73,
 	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x22, 0x0a, 0x05, 0x75, 0x73, 0x65, 0x72,
-	0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65,
+	0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72,
 	0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x05, 0x75, 0x73, 0x65, 0x72, 0x73, 0x22, 0xd4, 0x01, 0x0a,
 	0x04, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20,
@@ -1541,14 +1541,14 @@ var file_api_remote_proto_rawDesc = []byte{
 	0x70, 0x61, 0x63, 0x65, 0x73, 0x18, 0x09, 0x20, 0x03, 0x28, 0x09, 0x52, 0x06, 0x73, 0x70, 0x61,
 	0x63, 0x65, 0x73, 0x22, 0x35, 0x0a, 0x11, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c,
 	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x20, 0x0a, 0x04, 0x72, 0x6f, 0x6c, 0x65,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e,
 	0x52, 0x6f, 0x6c, 0x65, 0x52, 0x04, 0x72, 0x6f, 0x6c, 0x65, 0x22, 0x2e, 0x0a, 0x12, 0x43, 0x72,
 	0x65, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
 	0x12, 0x18, 0x0a, 0x07, 0x73, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x08, 0x52, 0x07, 0x73, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x22, 0x35, 0x0a, 0x11, 0x55, 0x70,
 	0x64, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
 	0x20, 0x0a, 0x04, 0x72, 0x6f, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e,
-	0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x04, 0x72, 0x6f, 0x6c,
+	0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x04, 0x72, 0x6f, 0x6c,
 	0x65, 0x22, 0x2e, 0x0a, 0x12, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x52,
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x73, 0x75, 0x63, 0x63, 0x65,
 	0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x73, 0x75, 0x63, 0x63, 0x65, 0x73,
@@ -1561,152 +1561,152 @@ var file_api_remote_proto_rawDesc = []byte{
 	0x6c, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x37, 0x0a, 0x11, 0x4c, 0x69,
 	0x73, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
 	0x22, 0x0a, 0x05, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0c,
-	0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x05, 0x72, 0x6f,
+	0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x05, 0x72, 0x6f,
 	0x6c, 0x65, 0x73, 0x32, 0xd5, 0x07, 0x0a, 0x18, 0x52, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x43, 0x72,
 	0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72,
 	0x12, 0x41, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61,
-	0x6c, 0x12, 0x1c, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x47, 0x65, 0x74, 0x43, 0x72,
+	0x6c, 0x12, 0x1c, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x43, 0x72,
 	0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
-	0x12, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74,
+	0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74,
 	0x69, 0x61, 0x6c, 0x12, 0x4c, 0x0a, 0x0d, 0x53, 0x65, 0x74, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e,
-	0x74, 0x69, 0x61, 0x6c, 0x12, 0x1c, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x53, 0x65,
+	0x74, 0x69, 0x61, 0x6c, 0x12, 0x1c, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x53, 0x65,
 	0x74, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x53, 0x65, 0x74, 0x43,
+	0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x53, 0x65, 0x74, 0x43,
 	0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
 	0x65, 0x12, 0x52, 0x0a, 0x0f, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74,
-	0x69, 0x61, 0x6c, 0x73, 0x12, 0x1e, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x4c, 0x69,
+	0x69, 0x61, 0x6c, 0x73, 0x12, 0x1e, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x4c, 0x69,
 	0x73, 0x74, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x4c, 0x69,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x4c, 0x69,
 	0x73, 0x74, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x52, 0x65, 0x73,
 	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x55, 0x0a, 0x10, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43,
-	0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x12, 0x1f, 0x2e, 0x72, 0x65, 0x6d, 0x6f,
-	0x74, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74,
-	0x69, 0x61, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x20, 0x2e, 0x72, 0x65, 0x6d,
-	0x6f, 0x74, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e,
+	0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x12, 0x1f, 0x2e, 0x73, 0x65, 0x72, 0x76,
+	0x65, 0x72, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74,
+	0x69, 0x61, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x20, 0x2e, 0x73, 0x65, 0x72,
+	0x76, 0x65, 0x72, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e,
 	0x74, 0x69, 0x61, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5b, 0x0a, 0x12,
 	0x44, 0x72, 0x6f, 0x70, 0x41, 0x6c, 0x6c, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61,
-	0x6c, 0x73, 0x12, 0x21, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x44, 0x72, 0x6f, 0x70,
+	0x6c, 0x73, 0x12, 0x21, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x44, 0x72, 0x6f, 0x70,
 	0x41, 0x6c, 0x6c, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x22, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x44,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x22, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x44,
 	0x72, 0x6f, 0x70, 0x41, 0x6c, 0x6c, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c,
 	0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x43, 0x0a, 0x0a, 0x43, 0x72, 0x65,
-	0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x19, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65,
+	0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x19, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72,
 	0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61,
+	0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x43, 0x72, 0x65, 0x61,
 	0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x43,
-	0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x19, 0x2e, 0x72,
-	0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65,
+	0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x19, 0x2e, 0x73,
+	0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72,
 	0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f,
 	0x6e, 0x73, 0x65, 0x12, 0x43, 0x0a, 0x0a, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65,
-	0x72, 0x12, 0x19, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74,
-	0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x72,
-	0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72,
+	0x72, 0x12, 0x19, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74,
+	0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x73,
+	0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72,
 	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x40, 0x0a, 0x09, 0x4c, 0x69, 0x73, 0x74,
-	0x55, 0x73, 0x65, 0x72, 0x73, 0x12, 0x18, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x4c,
+	0x55, 0x73, 0x65, 0x72, 0x73, 0x12, 0x18, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x4c,
 	0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
-	0x19, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65,
+	0x19, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65,
 	0x72, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x43, 0x0a, 0x0a, 0x43, 0x72,
-	0x65, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x19, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74,
-	0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x43, 0x72, 0x65,
+	0x65, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x19, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65,
+	0x72, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x43, 0x72, 0x65,
 	0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
 	0x43, 0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x19, 0x2e,
-	0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c,
-	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74,
-	0x65, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x70,
+	0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c,
+	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65,
+	0x72, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x70,
 	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x43, 0x0a, 0x0a, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x6f,
-	0x6c, 0x65, 0x12, 0x19, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65,
+	0x6c, 0x65, 0x12, 0x19, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x44, 0x65, 0x6c, 0x65,
 	0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e,
-	0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x6f, 0x6c,
+	0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x6f, 0x6c,
 	0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x40, 0x0a, 0x09, 0x4c, 0x69, 0x73,
-	0x74, 0x52, 0x6f, 0x6c, 0x65, 0x73, 0x12, 0x18, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e,
+	0x74, 0x52, 0x6f, 0x6c, 0x65, 0x73, 0x12, 0x18, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e,
 	0x4c, 0x69, 0x73, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x1a, 0x19, 0x2e, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x6f,
+	0x1a, 0x19, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x6f,
 	0x6c, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x27, 0x5a, 0x25, 0x67,
 	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x44, 0x61, 0x66, 0x61, 0x71, 0x75,
-	0x65, 0x2f, 0x73, 0x73, 0x68, 0x61, 0x6d, 0x61, 0x6e, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x72, 0x65,
-	0x6d, 0x6f, 0x74, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x2f, 0x73, 0x73, 0x68, 0x61, 0x6d, 0x61, 0x6e, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x73, 0x65,
+	0x72, 0x76, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
-	file_api_remote_proto_rawDescOnce sync.Once
-	file_api_remote_proto_rawDescData = file_api_remote_proto_rawDesc
+	file_api_server_proto_rawDescOnce sync.Once
+	file_api_server_proto_rawDescData = file_api_server_proto_rawDesc
 )
 
-func file_api_remote_proto_rawDescGZIP() []byte {
-	file_api_remote_proto_rawDescOnce.Do(func() {
-		file_api_remote_proto_rawDescData = protoimpl.X.CompressGZIP(file_api_remote_proto_rawDescData)
+func file_api_server_proto_rawDescGZIP() []byte {
+	file_api_server_proto_rawDescOnce.Do(func() {
+		file_api_server_proto_rawDescData = protoimpl.X.CompressGZIP(file_api_server_proto_rawDescData)
 	})
-	return file_api_remote_proto_rawDescData
+	return file_api_server_proto_rawDescData
 }
 
-var file_api_remote_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
-var file_api_remote_proto_goTypes = []interface{}{
-	(*Credential)(nil),                 // 0: remote.Credential
-	(*GetCredentialRequest)(nil),       // 1: remote.GetCredentialRequest
-	(*SetCredentialRequest)(nil),       // 2: remote.SetCredentialRequest
-	(*SetCredentialResponse)(nil),      // 3: remote.SetCredentialResponse
-	(*ListCredentialsRequest)(nil),     // 4: remote.ListCredentialsRequest
-	(*ListCredentialsResponse)(nil),    // 5: remote.ListCredentialsResponse
-	(*DeleteCredentialRequest)(nil),    // 6: remote.DeleteCredentialRequest
-	(*DeleteCredentialResponse)(nil),   // 7: remote.DeleteCredentialResponse
-	(*DropAllCredentialsRequest)(nil),  // 8: remote.DropAllCredentialsRequest
-	(*DropAllCredentialsResponse)(nil), // 9: remote.DropAllCredentialsResponse
-	(*User)(nil),                       // 10: remote.User
-	(*CreateUserRequest)(nil),          // 11: remote.CreateUserRequest
-	(*CreateUserResponse)(nil),         // 12: remote.CreateUserResponse
-	(*UpdateUserRequest)(nil),          // 13: remote.UpdateUserRequest
-	(*UpdateUserResponse)(nil),         // 14: remote.UpdateUserResponse
-	(*DeleteUserRequest)(nil),          // 15: remote.DeleteUserRequest
-	(*DeleteUserResponse)(nil),         // 16: remote.DeleteUserResponse
-	(*ListUsersRequest)(nil),           // 17: remote.ListUsersRequest
-	(*ListUsersResponse)(nil),          // 18: remote.ListUsersResponse
-	(*Role)(nil),                       // 19: remote.Role
-	(*CreateRoleRequest)(nil),          // 20: remote.CreateRoleRequest
-	(*CreateRoleResponse)(nil),         // 21: remote.CreateRoleResponse
-	(*UpdateRoleRequest)(nil),          // 22: remote.UpdateRoleRequest
-	(*UpdateRoleResponse)(nil),         // 23: remote.UpdateRoleResponse
-	(*DeleteRoleRequest)(nil),          // 24: remote.DeleteRoleRequest
-	(*DeleteRoleResponse)(nil),         // 25: remote.DeleteRoleResponse
-	(*ListRolesRequest)(nil),           // 26: remote.ListRolesRequest
-	(*ListRolesResponse)(nil),          // 27: remote.ListRolesResponse
+var file_api_server_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
+var file_api_server_proto_goTypes = []interface{}{
+	(*Credential)(nil),                 // 0: server.Credential
+	(*GetCredentialRequest)(nil),       // 1: server.GetCredentialRequest
+	(*SetCredentialRequest)(nil),       // 2: server.SetCredentialRequest
+	(*SetCredentialResponse)(nil),      // 3: server.SetCredentialResponse
+	(*ListCredentialsRequest)(nil),     // 4: server.ListCredentialsRequest
+	(*ListCredentialsResponse)(nil),    // 5: server.ListCredentialsResponse
+	(*DeleteCredentialRequest)(nil),    // 6: server.DeleteCredentialRequest
+	(*DeleteCredentialResponse)(nil),   // 7: server.DeleteCredentialResponse
+	(*DropAllCredentialsRequest)(nil),  // 8: server.DropAllCredentialsRequest
+	(*DropAllCredentialsResponse)(nil), // 9: server.DropAllCredentialsResponse
+	(*User)(nil),                       // 10: server.User
+	(*CreateUserRequest)(nil),          // 11: server.CreateUserRequest
+	(*CreateUserResponse)(nil),         // 12: server.CreateUserResponse
+	(*UpdateUserRequest)(nil),          // 13: server.UpdateUserRequest
+	(*UpdateUserResponse)(nil),         // 14: server.UpdateUserResponse
+	(*DeleteUserRequest)(nil),          // 15: server.DeleteUserRequest
+	(*DeleteUserResponse)(nil),         // 16: server.DeleteUserResponse
+	(*ListUsersRequest)(nil),           // 17: server.ListUsersRequest
+	(*ListUsersResponse)(nil),          // 18: server.ListUsersResponse
+	(*Role)(nil),                       // 19: server.Role
+	(*CreateRoleRequest)(nil),          // 20: server.CreateRoleRequest
+	(*CreateRoleResponse)(nil),         // 21: server.CreateRoleResponse
+	(*UpdateRoleRequest)(nil),          // 22: server.UpdateRoleRequest
+	(*UpdateRoleResponse)(nil),         // 23: server.UpdateRoleResponse
+	(*DeleteRoleRequest)(nil),          // 24: server.DeleteRoleRequest
+	(*DeleteRoleResponse)(nil),         // 25: server.DeleteRoleResponse
+	(*ListRolesRequest)(nil),           // 26: server.ListRolesRequest
+	(*ListRolesResponse)(nil),          // 27: server.ListRolesResponse
 }
-var file_api_remote_proto_depIdxs = []int32{
-	0,  // 0: remote.SetCredentialRequest.credential:type_name -> remote.Credential
-	0,  // 1: remote.ListCredentialsResponse.credentials:type_name -> remote.Credential
-	10, // 2: remote.CreateUserRequest.user:type_name -> remote.User
-	10, // 3: remote.UpdateUserRequest.user:type_name -> remote.User
-	10, // 4: remote.ListUsersResponse.users:type_name -> remote.User
-	19, // 5: remote.CreateRoleRequest.role:type_name -> remote.Role
-	19, // 6: remote.UpdateRoleRequest.role:type_name -> remote.Role
-	19, // 7: remote.ListRolesResponse.roles:type_name -> remote.Role
-	1,  // 8: remote.RemoteCredentialsManager.GetCredential:input_type -> remote.GetCredentialRequest
-	2,  // 9: remote.RemoteCredentialsManager.SetCredential:input_type -> remote.SetCredentialRequest
-	4,  // 10: remote.RemoteCredentialsManager.ListCredentials:input_type -> remote.ListCredentialsRequest
-	6,  // 11: remote.RemoteCredentialsManager.DeleteCredential:input_type -> remote.DeleteCredentialRequest
-	8,  // 12: remote.RemoteCredentialsManager.DropAllCredentials:input_type -> remote.DropAllCredentialsRequest
-	11, // 13: remote.RemoteCredentialsManager.CreateUser:input_type -> remote.CreateUserRequest
-	13, // 14: remote.RemoteCredentialsManager.UpdateUser:input_type -> remote.UpdateUserRequest
-	15, // 15: remote.RemoteCredentialsManager.DeleteUser:input_type -> remote.DeleteUserRequest
-	17, // 16: remote.RemoteCredentialsManager.ListUsers:input_type -> remote.ListUsersRequest
-	20, // 17: remote.RemoteCredentialsManager.CreateRole:input_type -> remote.CreateRoleRequest
-	22, // 18: remote.RemoteCredentialsManager.UpdateRole:input_type -> remote.UpdateRoleRequest
-	24, // 19: remote.RemoteCredentialsManager.DeleteRole:input_type -> remote.DeleteRoleRequest
-	26, // 20: remote.RemoteCredentialsManager.ListRoles:input_type -> remote.ListRolesRequest
-	0,  // 21: remote.RemoteCredentialsManager.GetCredential:output_type -> remote.Credential
-	3,  // 22: remote.RemoteCredentialsManager.SetCredential:output_type -> remote.SetCredentialResponse
-	5,  // 23: remote.RemoteCredentialsManager.ListCredentials:output_type -> remote.ListCredentialsResponse
-	7,  // 24: remote.RemoteCredentialsManager.DeleteCredential:output_type -> remote.DeleteCredentialResponse
-	9,  // 25: remote.RemoteCredentialsManager.DropAllCredentials:output_type -> remote.DropAllCredentialsResponse
-	12, // 26: remote.RemoteCredentialsManager.CreateUser:output_type -> remote.CreateUserResponse
-	14, // 27: remote.RemoteCredentialsManager.UpdateUser:output_type -> remote.UpdateUserResponse
-	16, // 28: remote.RemoteCredentialsManager.DeleteUser:output_type -> remote.DeleteUserResponse
-	18, // 29: remote.RemoteCredentialsManager.ListUsers:output_type -> remote.ListUsersResponse
-	21, // 30: remote.RemoteCredentialsManager.CreateRole:output_type -> remote.CreateRoleResponse
-	23, // 31: remote.RemoteCredentialsManager.UpdateRole:output_type -> remote.UpdateRoleResponse
-	25, // 32: remote.RemoteCredentialsManager.DeleteRole:output_type -> remote.DeleteRoleResponse
-	27, // 33: remote.RemoteCredentialsManager.ListRoles:output_type -> remote.ListRolesResponse
+var file_api_server_proto_depIdxs = []int32{
+	0,  // 0: server.SetCredentialRequest.credential:type_name -> server.Credential
+	0,  // 1: server.ListCredentialsResponse.credentials:type_name -> server.Credential
+	10, // 2: server.CreateUserRequest.user:type_name -> server.User
+	10, // 3: server.UpdateUserRequest.user:type_name -> server.User
+	10, // 4: server.ListUsersResponse.users:type_name -> server.User
+	19, // 5: server.CreateRoleRequest.role:type_name -> server.Role
+	19, // 6: server.UpdateRoleRequest.role:type_name -> server.Role
+	19, // 7: server.ListRolesResponse.roles:type_name -> server.Role
+	1,  // 8: server.RemoteCredentialsManager.GetCredential:input_type -> server.GetCredentialRequest
+	2,  // 9: server.RemoteCredentialsManager.SetCredential:input_type -> server.SetCredentialRequest
+	4,  // 10: server.RemoteCredentialsManager.ListCredentials:input_type -> server.ListCredentialsRequest
+	6,  // 11: server.RemoteCredentialsManager.DeleteCredential:input_type -> server.DeleteCredentialRequest
+	8,  // 12: server.RemoteCredentialsManager.DropAllCredentials:input_type -> server.DropAllCredentialsRequest
+	11, // 13: server.RemoteCredentialsManager.CreateUser:input_type -> server.CreateUserRequest
+	13, // 14: server.RemoteCredentialsManager.UpdateUser:input_type -> server.UpdateUserRequest
+	15, // 15: server.RemoteCredentialsManager.DeleteUser:input_type -> server.DeleteUserRequest
+	17, // 16: server.RemoteCredentialsManager.ListUsers:input_type -> server.ListUsersRequest
+	20, // 17: server.RemoteCredentialsManager.CreateRole:input_type -> server.CreateRoleRequest
+	22, // 18: server.RemoteCredentialsManager.UpdateRole:input_type -> server.UpdateRoleRequest
+	24, // 19: server.RemoteCredentialsManager.DeleteRole:input_type -> server.DeleteRoleRequest
+	26, // 20: server.RemoteCredentialsManager.ListRoles:input_type -> server.ListRolesRequest
+	0,  // 21: server.RemoteCredentialsManager.GetCredential:output_type -> server.Credential
+	3,  // 22: server.RemoteCredentialsManager.SetCredential:output_type -> server.SetCredentialResponse
+	5,  // 23: server.RemoteCredentialsManager.ListCredentials:output_type -> server.ListCredentialsResponse
+	7,  // 24: server.RemoteCredentialsManager.DeleteCredential:output_type -> server.DeleteCredentialResponse
+	9,  // 25: server.RemoteCredentialsManager.DropAllCredentials:output_type -> server.DropAllCredentialsResponse
+	12, // 26: server.RemoteCredentialsManager.CreateUser:output_type -> server.CreateUserResponse
+	14, // 27: server.RemoteCredentialsManager.UpdateUser:output_type -> server.UpdateUserResponse
+	16, // 28: server.RemoteCredentialsManager.DeleteUser:output_type -> server.DeleteUserResponse
+	18, // 29: server.RemoteCredentialsManager.ListUsers:output_type -> server.ListUsersResponse
+	21, // 30: server.RemoteCredentialsManager.CreateRole:output_type -> server.CreateRoleResponse
+	23, // 31: server.RemoteCredentialsManager.UpdateRole:output_type -> server.UpdateRoleResponse
+	25, // 32: server.RemoteCredentialsManager.DeleteRole:output_type -> server.DeleteRoleResponse
+	27, // 33: server.RemoteCredentialsManager.ListRoles:output_type -> server.ListRolesResponse
 	21, // [21:34] is the sub-list for method output_type
 	8,  // [8:21] is the sub-list for method input_type
 	8,  // [8:8] is the sub-list for extension type_name
@@ -1714,13 +1714,13 @@ var file_api_remote_proto_depIdxs = []int32{
 	0,  // [0:8] is the sub-list for field type_name
 }
 
-func init() { file_api_remote_proto_init() }
-func file_api_remote_proto_init() {
-	if File_api_remote_proto != nil {
+func init() { file_api_server_proto_init() }
+func file_api_server_proto_init() {
+	if File_api_server_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_api_remote_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Credential); i {
 			case 0:
 				return &v.state
@@ -1732,7 +1732,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetCredentialRequest); i {
 			case 0:
 				return &v.state
@@ -1744,7 +1744,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SetCredentialRequest); i {
 			case 0:
 				return &v.state
@@ -1756,7 +1756,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SetCredentialResponse); i {
 			case 0:
 				return &v.state
@@ -1768,7 +1768,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListCredentialsRequest); i {
 			case 0:
 				return &v.state
@@ -1780,7 +1780,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListCredentialsResponse); i {
 			case 0:
 				return &v.state
@@ -1792,7 +1792,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteCredentialRequest); i {
 			case 0:
 				return &v.state
@@ -1804,7 +1804,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteCredentialResponse); i {
 			case 0:
 				return &v.state
@@ -1816,7 +1816,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DropAllCredentialsRequest); i {
 			case 0:
 				return &v.state
@@ -1828,7 +1828,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DropAllCredentialsResponse); i {
 			case 0:
 				return &v.state
@@ -1840,7 +1840,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*User); i {
 			case 0:
 				return &v.state
@@ -1852,7 +1852,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CreateUserRequest); i {
 			case 0:
 				return &v.state
@@ -1864,7 +1864,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CreateUserResponse); i {
 			case 0:
 				return &v.state
@@ -1876,7 +1876,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdateUserRequest); i {
 			case 0:
 				return &v.state
@@ -1888,7 +1888,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdateUserResponse); i {
 			case 0:
 				return &v.state
@@ -1900,7 +1900,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteUserRequest); i {
 			case 0:
 				return &v.state
@@ -1912,7 +1912,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteUserResponse); i {
 			case 0:
 				return &v.state
@@ -1924,7 +1924,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListUsersRequest); i {
 			case 0:
 				return &v.state
@@ -1936,7 +1936,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListUsersResponse); i {
 			case 0:
 				return &v.state
@@ -1948,7 +1948,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Role); i {
 			case 0:
 				return &v.state
@@ -1960,7 +1960,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CreateRoleRequest); i {
 			case 0:
 				return &v.state
@@ -1972,7 +1972,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CreateRoleResponse); i {
 			case 0:
 				return &v.state
@@ -1984,7 +1984,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdateRoleRequest); i {
 			case 0:
 				return &v.state
@@ -1996,7 +1996,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdateRoleResponse); i {
 			case 0:
 				return &v.state
@@ -2008,7 +2008,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteRoleRequest); i {
 			case 0:
 				return &v.state
@@ -2020,7 +2020,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteRoleResponse); i {
 			case 0:
 				return &v.state
@@ -2032,7 +2032,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListRolesRequest); i {
 			case 0:
 				return &v.state
@@ -2044,7 +2044,7 @@ func file_api_remote_proto_init() {
 				return nil
 			}
 		}
-		file_api_remote_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
+		file_api_server_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListRolesResponse); i {
 			case 0:
 				return &v.state
@@ -2061,18 +2061,18 @@ func file_api_remote_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_api_remote_proto_rawDesc,
+			RawDescriptor: file_api_server_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   28,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_api_remote_proto_goTypes,
-		DependencyIndexes: file_api_remote_proto_depIdxs,
-		MessageInfos:      file_api_remote_proto_msgTypes,
+		GoTypes:           file_api_server_proto_goTypes,
+		DependencyIndexes: file_api_server_proto_depIdxs,
+		MessageInfos:      file_api_server_proto_msgTypes,
 	}.Build()
-	File_api_remote_proto = out.File
-	file_api_remote_proto_rawDesc = nil
-	file_api_remote_proto_goTypes = nil
-	file_api_remote_proto_depIdxs = nil
+	File_api_server_proto = out.File
+	file_api_server_proto_rawDesc = nil
+	file_api_server_proto_goTypes = nil
+	file_api_server_proto_depIdxs = nil
 }

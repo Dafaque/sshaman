@@ -204,10 +204,10 @@
             "name": "Start server",
             "type": "go",
             "request": "launch",
-            "cwd": "${workspaceFolder}/cmd/remote",
+            "cwd": "${workspaceFolder}/cmd/server",
             "console": "integratedTerminal",
             "mode": "auto",
-            "program": "cmd/remote/",
+            "program": "cmd/server/",
             "args": [
                 "-config", "${workspaceFolder}/config.yaml"
             ]

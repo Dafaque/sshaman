@@ -7,7 +7,7 @@ import (
 	"github.com/Masterminds/squirrel"
 	"github.com/lib/pq"
 
-	"github.com/Dafaque/sshaman/internal/remote/controllers/users"
+	"github.com/Dafaque/sshaman/internal/server/controllers/users"
 )
 
 const tableName = "users"

@@ -1,4 +1,4 @@
-MIGRATIONS_DIR=./internal/remote/db/migrations
+MIGRATIONS_DIR=./internal/server/db/migrations
 
 new-migration:
 	@read -p "New migration filename: " filename;\

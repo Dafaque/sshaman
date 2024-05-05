@@ -6,11 +6,11 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/Dafaque/sshaman/internal/remote/controllers/users"
-	remote "github.com/Dafaque/sshaman/pkg/remote/api"
+	"github.com/Dafaque/sshaman/internal/server/controllers/users"
+	api "github.com/Dafaque/sshaman/pkg/server/api"
 )
 
-func (s *server) CreateUser(ctx context.Context, req *remote.CreateUserRequest) (*remote.CreateUserResponse, error) {
+func (s *server) CreateUser(ctx context.Context, req *api.CreateUserRequest) (*api.CreateUserResponse, error) {
 	user := &users.User{
 		Name:  req.User.Name,
 		Roles: req.User.Roles,
@@ -25,14 +25,14 @@ func (s *server) CreateUser(ctx context.Context, req *remote.CreateUserRequest) 
 	if user.ID >= 0 {
 		success = false
 	}
-	resp := &remote.CreateUserResponse{
+	resp := &api.CreateUserResponse{
 		Success: success,
 	}
 
 	return resp, nil
 }
 
-func (s *server) UpdateUser(ctx context.Context, req *remote.UpdateUserRequest) (*remote.UpdateUserResponse, error) {
+func (s *server) UpdateUser(ctx context.Context, req *api.UpdateUserRequest) (*api.UpdateUserResponse, error) {
 	user := users.User{
 		ID:    req.User.Id,
 		Name:  req.User.Name,
@@ -43,13 +43,13 @@ func (s *server) UpdateUser(ctx context.Context, req *remote.UpdateUserRequest) 
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, err.Error())
 	}
-	resp := &remote.UpdateUserResponse{
+	resp := &api.UpdateUserResponse{
 		Success: true,
 	}
 	return resp, nil
 }
 
-func (s *server) DeleteUser(ctx context.Context, req *remote.DeleteUserRequest) (*remote.DeleteUserResponse, error) {
+func (s *server) DeleteUser(ctx context.Context, req *api.DeleteUserRequest) (*api.DeleteUserResponse, error) {
 	if req.Id == 0 {
 		return nil, status.Errorf(codes.PermissionDenied, "cannot delete superuser")
 	}
@@ -57,24 +57,24 @@ func (s *server) DeleteUser(ctx context.Context, req *remote.DeleteUserRequest) 
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, err.Error())
 	}
-	resp := &remote.DeleteUserResponse{
+	resp := &api.DeleteUserResponse{
 		Success: true,
 	}
 	return resp, nil
 }
 
-func (s *server) ListUsers(ctx context.Context, req *remote.ListUsersRequest) (*remote.ListUsersResponse, error) {
+func (s *server) ListUsers(ctx context.Context, req *api.ListUsersRequest) (*api.ListUsersResponse, error) {
 	users, err := s.usersController.List(ctx)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, err.Error())
 	}
 
-	resp := &remote.ListUsersResponse{
-		Users: make([]*remote.User, len(users)),
+	resp := &api.ListUsersResponse{
+		Users: make([]*api.User, len(users)),
 	}
 
 	for i, user := range users {
-		resp.Users[i] = &remote.User{
+		resp.Users[i] = &api.User{
 			Id:    user.ID,
 			Name:  user.Name,
 			Roles: user.Roles,

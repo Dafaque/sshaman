@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"errors"
 
-	"github.com/Dafaque/sshaman/internal/remote/errs"
+	"github.com/Dafaque/sshaman/internal/server/errs"
 )
 
 // supersuser id
