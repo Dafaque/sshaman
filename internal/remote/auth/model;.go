@@ -1,5 +1,7 @@
 package auth
 
+import "context"
+
 type permissions struct {
 	read      []string
 	write     []string
@@ -46,4 +48,23 @@ func (perms *permissions) Overwrite(space string) bool {
 
 func (perms *permissions) SU() bool {
 	return perms.su
+}
+
+type RPCCredentials struct {
+	token                    string
+	requireTransportSecurity bool
+}
+
+func NewRPCCredentials(token string, requireTransportSecurity bool) *RPCCredentials {
+	return &RPCCredentials{token: token, requireTransportSecurity: requireTransportSecurity}
+}
+
+func (c *RPCCredentials) GetRequestMetadata(context.Context, ...string) (map[string]string, error) {
+	return map[string]string{
+		"Authorization": "Bearer " + c.token,
+	}, nil
+}
+
+func (c *RPCCredentials) RequireTransportSecurity() bool {
+	return c.requireTransportSecurity
 }

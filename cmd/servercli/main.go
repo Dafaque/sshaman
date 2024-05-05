@@ -8,6 +8,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
+	"github.com/Dafaque/sshaman/internal/remote/auth"
 	remote "github.com/Dafaque/sshaman/pkg/remote/api"
 )
 
@@ -20,7 +21,7 @@ func main() {
 	conn, err := grpc.Dial(
 		address,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
-		grpc.WithPerRPCCredentials(&authCreds{token: token}),
+		grpc.WithPerRPCCredentials(auth.NewRPCCredentials(token, false)),
 	)
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
@@ -39,18 +40,4 @@ func main() {
 		log.Fatalf("could not list roles: %v", err)
 	}
 	log.Printf("Roles: %v", r.GetRoles())
-}
-
-type authCreds struct {
-	token string
-}
-
-func (c *authCreds) GetRequestMetadata(context.Context, ...string) (map[string]string, error) {
-	return map[string]string{
-		"Authorization": "Bearer " + c.token,
-	}, nil
-}
-
-func (c *authCreds) RequireTransportSecurity() bool {
-	return false
 }
