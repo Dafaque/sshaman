@@ -29,14 +29,35 @@ func New(rolesRepository repository) (Controller, error) {
 }
 
 func (rc *controller) Create(ctx context.Context, role *Role) error {
+	isPermitted, err := rc.isPermitted(ctx)
+	if err != nil {
+		return err
+	}
+	if !isPermitted {
+		return errs.ErrNotPermitted
+	}
 	return rc.rolesRepository.Create(ctx, role)
 }
 
 func (rc *controller) Update(ctx context.Context, role *Role) error {
+	isPermitted, err := rc.isPermitted(ctx)
+	if err != nil {
+		return err
+	}
+	if !isPermitted {
+		return errs.ErrNotPermitted
+	}
 	return rc.rolesRepository.Update(ctx, role)
 }
 
 func (rc *controller) Delete(ctx context.Context, id int64) error {
+	isPermitted, err := rc.isPermitted(ctx)
+	if err != nil {
+		return err
+	}
+	if !isPermitted {
+		return errs.ErrNotPermitted
+	}
 	return rc.rolesRepository.Delete(ctx, id)
 }
 
@@ -52,6 +73,7 @@ func (rc *controller) List(ctx context.Context) ([]Role, error) {
 }
 
 func (rc *controller) Get(ctx context.Context, ids ...int64) ([]Role, error) {
+	//? not exposed by the API, internal usage
 	return rc.rolesRepository.Get(ctx, ids...)
 }
 

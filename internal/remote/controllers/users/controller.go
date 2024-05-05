@@ -4,6 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+
+	"github.com/Dafaque/sshaman/internal/remote/errs"
 )
 
 // supersuser id
@@ -35,23 +37,55 @@ func New(usersRepository usersRepository) (Controller, error) {
 }
 
 func (c *controller) Create(ctx context.Context, user *User) error {
+	isPermitted, err := c.isPermitted(ctx)
+	if err != nil {
+		return err
+	}
+	if !isPermitted {
+		return errs.ErrNotPermitted
+	}
 	user.ID = -1
 	return c.usersRepository.Create(ctx, user)
 }
 
 func (c *controller) Update(ctx context.Context, user User) error {
+	isPermitted, err := c.isPermitted(ctx)
+	if err != nil {
+		return err
+	}
+	if !isPermitted {
+		return errs.ErrNotPermitted
+	}
+	if user.ID == SUID {
+		return errors.New("can't update superuser")
+	}
 	return c.usersRepository.Update(ctx, user)
 }
 
 func (c *controller) Get(ctx context.Context, userID int64) (*User, error) {
+	//? not exposed by the API, internal usage
 	return c.usersRepository.Get(ctx, userID)
 }
 
 func (c *controller) Delete(ctx context.Context, userID int64) error {
+	isPermitted, err := c.isPermitted(ctx)
+	if err != nil {
+		return err
+	}
+	if !isPermitted {
+		return errs.ErrNotPermitted
+	}
 	return c.usersRepository.Delete(ctx, userID)
 }
 
 func (c *controller) List(ctx context.Context) ([]User, error) {
+	isPermitted, err := c.isPermitted(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if !isPermitted {
+		return nil, errs.ErrNotPermitted
+	}
 	return c.usersRepository.List(ctx)
 }
 
@@ -80,4 +114,12 @@ func (c *controller) enshureSuperuser() error {
 
 func (c *controller) PrintToken() bool {
 	return c.suCreated
+}
+
+func (rc *controller) isPermitted(ctx context.Context) (bool, error) {
+	perms, ok := ctx.Value("permissions").(permissions)
+	if !ok {
+		return false, errors.New("permissions not found")
+	}
+	return !perms.SU(), nil
 }
