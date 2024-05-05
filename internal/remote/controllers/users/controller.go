@@ -19,34 +19,15 @@ type Controller interface {
 }
 
 type controller struct {
-	jwtManager      *auth.JWTManager
 	usersRepository usersRepository
-	logger          *zap.Logger
 }
 
 func New(jwtManager *auth.JWTManager, usersRepository usersRepository, logger *zap.Logger) (Controller, error) {
 	controller := &controller{
-		jwtManager:      jwtManager,
 		usersRepository: usersRepository,
-		logger:          logger.Named("UsersControllers"),
 	}
-	err := controller.checkSuperuser()
+	err := controller.enshureSuperuser(jwtManager, logger)
 	if err != nil {
-		if errors.Is(err, errSuperuserNotFound) {
-			createSuperuser := &User{
-				Name:  "su",
-				Roles: []string{"su"},
-			}
-			err = controller.Create(context.Background(), createSuperuser)
-			if err != nil {
-				return nil, err
-			}
-			str, err := controller.jwtManager.GenerateToken(createSuperuser.ID)
-			if err != nil {
-				return nil, err
-			}
-			controller.logger.Info("superuser created", zap.String("token", str))
-		}
 		return nil, err
 	}
 	return controller, nil
@@ -73,18 +54,29 @@ func (c *controller) List(ctx context.Context) ([]User, error) {
 	return c.usersRepository.List(ctx)
 }
 
-var errSuperuserNotFound = errors.New("superuser not found")
+var errUnshureSuperuser = errors.New("failed to ensure superuser")
 
-func (c *controller) checkSuperuser() error {
-	su, err := c.Get(context.Background(), 0)
+func (rc *controller) enshureSuperuser(jwtManager *auth.JWTManager, logger *zap.Logger) error {
+	su, err := rc.Get(context.Background(), 0)
 	if err != nil {
-		if errors.Is(err, sql.ErrNoRows) {
-			return errSuperuserNotFound
+		if !errors.Is(err, sql.ErrNoRows) {
+			return errors.Join(errUnshureSuperuser, err)
 		}
-		return err
 	}
-	if su == nil {
-		return errSuperuserNotFound
+	if su != nil {
+		return nil
 	}
+	user := &User{
+		Name:  "superuser",
+		Roles: []string{"su"},
+	}
+	if err := rc.Create(context.Background(), user); err != nil {
+		return errors.Join(errUnshureSuperuser, err)
+	}
+	str, err := jwtManager.GenerateToken(user.ID)
+	if err != nil {
+		return errors.Join(errUnshureSuperuser, err)
+	}
+	logger.Named("enshureSuperuser").Info("superuser created", zap.String("token", str))
 	return nil
 }

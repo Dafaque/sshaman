@@ -14,10 +14,12 @@ import (
 
 	"github.com/Dafaque/sshaman/internal/remote/auth"
 	"github.com/Dafaque/sshaman/internal/remote/config"
+	"github.com/Dafaque/sshaman/internal/remote/controllers/roles"
 	"github.com/Dafaque/sshaman/internal/remote/controllers/users"
 	"github.com/Dafaque/sshaman/internal/remote/db"
 	_ "github.com/Dafaque/sshaman/internal/remote/db/migrations"
 	"github.com/Dafaque/sshaman/internal/remote/handler"
+	rolesRepo "github.com/Dafaque/sshaman/internal/remote/repositories/roles"
 	usersRepo "github.com/Dafaque/sshaman/internal/remote/repositories/users"
 	remote "github.com/Dafaque/sshaman/pkg/remote/api"
 )
@@ -77,13 +79,21 @@ func main() {
 		logger.Fatal("failed to create users controller", zap.Error(err))
 	}
 
+	rolesController, err := roles.New(repos.roles)
+	if err != nil {
+		logger.Fatal("failed to create roles controller", zap.Error(err))
+	}
+
 	// MARK: - grpc
 	s := grpc.NewServer(
 		grpc.UnaryInterceptor(interceptor.Unary()),
 		grpc.StreamInterceptor(interceptor.Stream()),
 	)
 
-	handler := handler.New(usersController)
+	handler := handler.New(
+		usersController,
+		rolesController,
+	)
 	remote.RegisterRemoteCredentialsManagerServer(s, handler)
 	reflection.Register(s)
 
@@ -112,9 +122,14 @@ func (l *gooseLogger) Printf(format string, v ...interface{}) {
 
 type repositories struct {
 	users usersRepo.Repository
+	roles rolesRepo.Repository
 }
 
 func newRepositories(db *sql.DB) (*repositories, error) {
 	users := usersRepo.New(db)
-	return &repositories{users: users}, nil
+	roles := rolesRepo.New(db)
+	return &repositories{
+		users: users,
+		roles: roles,
+	}, nil
 }

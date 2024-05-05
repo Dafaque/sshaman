@@ -20,22 +20,23 @@ var columns = []string{
 	"write",
 	"delete",
 	"overwrite",
-	"su",
+	"superuser",
 	"spaces",
 }
 
-type repository interface {
+type Repository interface {
 	Create(ctx context.Context, role *roles.Role) error
 	Update(ctx context.Context, role *roles.Role) error
 	Delete(ctx context.Context, id int64) error
 	List(ctx context.Context) ([]roles.Role, error)
+	Get(ctx context.Context, ids ...int64) ([]roles.Role, error)
 }
 
 type roleRepository struct {
 	db *sql.DB
 }
 
-func NewRoleRepository(db *sql.DB) repository {
+func New(db *sql.DB) Repository {
 	return &roleRepository{db: db}
 }
 
@@ -139,4 +140,30 @@ func (r *roleRepository) List(ctx context.Context) ([]roles.Role, error) {
 		list = append(list, role)
 	}
 	return list, nil
+}
+
+func (r *roleRepository) Get(ctx context.Context, ids ...int64) ([]roles.Role, error) {
+	query := squirrel.Select(columns...).
+		From(tableName).
+		Where(squirrel.Eq{"id": ids}).
+		PlaceholderFormat(squirrel.Dollar).
+		RunWith(r.db)
+
+	rows, err := query.QueryContext(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var rolesList []roles.Role
+	for rows.Next() {
+		var role roles.Role
+		err := rows.Scan(&role.ID, &role.Name, &role.Description, &role.Read, &role.Write, &role.Delete, &role.Overwrite, &role.SU, pq.Array(&role.Spaces))
+		if err != nil {
+			return nil, err
+		}
+		rolesList = append(rolesList, role)
+	}
+
+	return rolesList, nil
 }
