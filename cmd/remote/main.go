@@ -81,7 +81,6 @@ func main() {
 		logger.Fatal("failed to create jwt manager", zap.Error(err))
 	}
 	interceptor := auth.NewGRPCAuthInterceptor(jwtManager, rolesController, usersController)
-	defer interceptor.Shutdown() //@todo gracefully shutdown
 
 	// MARK: - post init controllers
 	if usersController.PrintToken() {
@@ -109,6 +108,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+	defer lis.Close() //@todo gracefully shutdown
+
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

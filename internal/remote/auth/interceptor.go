@@ -128,7 +128,3 @@ func (interceptor *GRPCAuthInterceptor) authorize(ctx context.Context) (*permiss
 
 	return &perms, nil
 }
-
-func (interceptor *GRPCAuthInterceptor) Shutdown() error {
-	return nil
-}
