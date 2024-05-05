@@ -7,13 +7,36 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
+	"github.com/Dafaque/sshaman/internal/server/controllers/roles"
 	"github.com/Dafaque/sshaman/internal/server/errs"
 	api "github.com/Dafaque/sshaman/pkg/server/api"
 )
 
 func (s *server) CreateRole(ctx context.Context, req *api.CreateRoleRequest) (*api.CreateRoleResponse, error) {
-	// Implementation logic to add a role
-	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
+	role := &roles.Role{
+		Name:        req.Role.Name,
+		Description: req.Role.Description,
+		Read:        req.Role.Read,
+		Write:       req.Role.Write,
+		Delete:      req.Role.Delete,
+		Overwrite:   req.Role.Overwrite,
+		SU:          req.Role.Su,
+		Spaces:      req.Role.Spaces,
+	}
+	err := s.rolesController.Create(ctx, role)
+	if err != nil {
+		if errors.Is(err, errs.ErrNotPermitted) {
+			return nil, status.Errorf(codes.PermissionDenied, err.Error())
+		}
+		return nil, status.Errorf(codes.Internal, err.Error())
+	}
+	var success bool
+	if role.ID > 0 {
+		success = true
+	}
+	return &api.CreateRoleResponse{
+		Success: success,
+	}, nil
 }
 
 func (s *server) UpdateRole(ctx context.Context, req *api.UpdateRoleRequest) (*api.UpdateRoleResponse, error) {

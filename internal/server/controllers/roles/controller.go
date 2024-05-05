@@ -110,5 +110,5 @@ func (rc *controller) isPermitted(ctx context.Context) (bool, error) {
 	if !ok {
 		return false, errors.New("permissions not found")
 	}
-	return !perms.SU(), nil
+	return perms.SU(), nil
 }

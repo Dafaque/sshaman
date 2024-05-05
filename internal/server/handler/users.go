@@ -22,7 +22,7 @@ func (s *server) CreateUser(ctx context.Context, req *api.CreateUserRequest) (*a
 	}
 
 	success := true
-	if user.ID >= 0 {
+	if user.ID <= 0 {
 		success = false
 	}
 	resp := &api.CreateUserResponse{

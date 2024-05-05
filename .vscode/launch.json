@@ -211,6 +211,59 @@
             "args": [
                 "-config", "${workspaceFolder}/config.yaml"
             ]
+        },{
+            "name": "Server CLI: list users",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/cmd/servercli",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/servercli/",
+            "args": [
+                "-list",
+                "users"
+            ]
+        },{
+            "name": "Server CLI: list roles",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/cmd/servercli",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/servercli/",
+            "args": [
+                "-list",
+                "roles"
+            ]
+        },{
+            "name": "Server CLI: create user",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/cmd/servercli",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/servercli/",
+            "args": [
+                "-create",
+                "users",
+                "-name", "test",
+                "-roles", "1,2",
+            ]
+        },{
+            "name": "Server CLI: create role",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/cmd/servercli",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/servercli/",
+            "args": [
+                "-create",
+                "roles",
+                "-name", "test",
+                "-s", "*",
+                "-super",
+            ]
         }
     ]
 }
