@@ -9,3 +9,11 @@ type repository interface {
 	List(ctx context.Context) ([]Role, error)
 	Get(ctx context.Context, ids ...int64) ([]Role, error)
 }
+
+type permissions interface {
+	// Read(space string) bool
+	// Write(space string) bool
+	// Delete(space string) bool
+	// Overwrite(space string) bool
+	SU() bool
+}

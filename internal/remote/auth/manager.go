@@ -43,7 +43,7 @@ func (j *JWTManager) GenerateToken(userId int64) (string, error) {
 		"iat": now.Unix(),
 		"exp": now.Add(time.Hour * 24).Unix(),
 	})
-	key, err := j.keyFunc(token)
+	key, err := j.privateKeyFunc(token)
 	if err != nil {
 		return "", err
 	}
@@ -59,8 +59,9 @@ func (j *JWTManager) ValidateToken(token string) (*authParams, error) {
 	parser := jwt.NewParser(
 		jwt.WithAudience(j.issuer),
 		jwt.WithIssuer(j.issuer),
+		jwt.WithValidMethods([]string{jwt.SigningMethodES384.Alg()}),
 	)
-	t, err := parser.Parse(token, j.keyFunc)
+	t, err := parser.Parse(token, j.publicKeyFunc)
 	if err != nil {
 		return nil, err
 	}
@@ -75,6 +76,12 @@ func (j *JWTManager) ValidateToken(token string) (*authParams, error) {
 	return &authParams{userID: userId, valid: t.Valid}, nil
 }
 
-func (j *JWTManager) keyFunc(token *jwt.Token) (interface{}, error) {
+func (j *JWTManager) privateKeyFunc(_ *jwt.Token) (interface{}, error) {
 	return j.secretKey, nil
 }
+
+func (j *JWTManager) publicKeyFunc(_ *jwt.Token) (interface{}, error) {
+	return &j.secretKey.PublicKey, nil
+}
+
+// token signature is invalid: key is of invalid type: HMAC verify expects []byte

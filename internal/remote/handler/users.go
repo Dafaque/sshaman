@@ -15,7 +15,7 @@ func (s *server) CreateUser(ctx context.Context, req *remote.CreateUserRequest) 
 		Name:  req.User.Name,
 		Roles: req.User.Roles,
 	}
-
+	// @todo enshure roles exist
 	err := s.usersController.Create(ctx, user)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, err.Error())
@@ -38,6 +38,7 @@ func (s *server) UpdateUser(ctx context.Context, req *remote.UpdateUserRequest) 
 		Name:  req.User.Name,
 		Roles: req.User.Roles,
 	}
+	// @todo enshure roles exist
 	err := s.usersController.Update(ctx, user)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, err.Error())
@@ -67,6 +68,7 @@ func (s *server) ListUsers(ctx context.Context, req *remote.ListUsersRequest) (*
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, err.Error())
 	}
+
 	resp := &remote.ListUsersResponse{
 		Users: make([]*remote.User, len(users)),
 	}

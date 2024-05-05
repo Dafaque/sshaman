@@ -16,7 +16,7 @@ func upCreateUsers(ctx context.Context, tx *sql.Tx) error {
 		CREATE TABLE IF NOT EXISTS users (
 			id SERIAL PRIMARY KEY,
 			name VARCHAR(255) NOT NULL,
-			roles TEXT[] NOT NULL
+			roles INTEGER[] NOT NULL
 		);
 		CREATE INDEX IF NOT EXISTS idx_users_id ON users (id);
 	`)

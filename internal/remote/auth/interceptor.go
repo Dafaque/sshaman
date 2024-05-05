@@ -3,19 +3,29 @@ package auth
 import (
 	"context"
 	"strconv"
+	"strings"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
+
+	"github.com/Dafaque/sshaman/internal/remote/controllers/roles"
+	"github.com/Dafaque/sshaman/internal/remote/controllers/users"
 )
 
 type GRPCAuthInterceptor struct {
 	jwtManager *JWTManager
+	roles      roles.Controller
+	users      users.Controller
 }
 
-func NewGRPCAuthInterceptor(jwtManager *JWTManager) *GRPCAuthInterceptor {
-	return &GRPCAuthInterceptor{jwtManager: jwtManager}
+func NewGRPCAuthInterceptor(
+	jwtManager *JWTManager,
+	roles roles.Controller,
+	users users.Controller,
+) *GRPCAuthInterceptor {
+	return &GRPCAuthInterceptor{jwtManager: jwtManager, roles: roles, users: users}
 }
 
 func (interceptor *GRPCAuthInterceptor) Unary() grpc.UnaryServerInterceptor {
@@ -29,7 +39,7 @@ func (interceptor *GRPCAuthInterceptor) Unary() grpc.UnaryServerInterceptor {
 		if err != nil {
 			return nil, err
 		}
-		ctx = context.WithValue(ctx, "userID", uid)
+		ctx = context.WithValue(ctx, "permissions", uid)
 		return handler(ctx, req)
 	}
 }
@@ -41,35 +51,82 @@ func (interceptor *GRPCAuthInterceptor) Stream() grpc.StreamServerInterceptor {
 		info *grpc.StreamServerInfo,
 		handler grpc.StreamHandler,
 	) error {
-		uid, err := interceptor.authorize(ss.Context())
+		perms, err := interceptor.authorize(ss.Context())
 		if err != nil {
 			return err
 		}
-		ss.SetHeader(metadata.Pairs("userID", strconv.FormatInt(uid, 10)))
+		if perms.su {
+			ss.SetHeader(metadata.Pairs("x-permissions-su", strconv.FormatBool(perms.su)))
+		} else {
+			ss.SetHeader(metadata.Pairs("x-permissions-read", strings.Join(perms.read, ",")))
+			ss.SetHeader(metadata.Pairs("x-permissions-write", strings.Join(perms.write, ",")))
+			ss.SetHeader(metadata.Pairs("x-permissions-delete", strings.Join(perms.delete, ",")))
+			ss.SetHeader(metadata.Pairs("x-permissions-overwrite", strings.Join(perms.overwrite, ",")))
+		}
+
 		return handler(srv, ss)
 	}
 }
 
-func (interceptor *GRPCAuthInterceptor) authorize(ctx context.Context) (int64, error) {
+const tokenPrefix = "Bearer "
+
+func (interceptor *GRPCAuthInterceptor) authorize(ctx context.Context) (*permissions, error) {
 	md, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
-		return -1, status.Errorf(codes.Unauthenticated, "metadata is not provided")
+		return nil, status.Errorf(codes.Unauthenticated, "metadata is not provided")
 	}
 
 	values := md["authorization"]
 	if len(values) == 0 {
-		return -1, status.Errorf(codes.Unauthenticated, "authorization token is not provided")
+		return nil, status.Errorf(codes.Unauthenticated, "authorization token is not provided")
 	}
 
 	accessToken := values[0]
+
+	if len(accessToken) < len(tokenPrefix) {
+		return nil, status.Errorf(codes.Unauthenticated, "authorization token is not provided")
+	}
+
+	accessToken = strings.TrimPrefix(accessToken, tokenPrefix)
+
 	params, err := interceptor.jwtManager.ValidateToken(accessToken)
 	if err != nil {
-		return -1, status.Errorf(codes.Unauthenticated, "access token is invalid: %v", err)
+		return nil, status.Errorf(codes.Unauthenticated, "access token is invalid: %v", err)
 	}
 	if !params.valid {
-		return -1, status.Errorf(codes.Unauthenticated, "access token is invalid")
+		return nil, status.Errorf(codes.Unauthenticated, "access token is invalid")
 	}
-	return params.userID, nil
+
+	user, err := interceptor.users.Get(ctx, params.userID)
+	if err != nil {
+		return nil, status.Errorf(codes.Unauthenticated, "user not found")
+	}
+	roles, err := interceptor.roles.Get(ctx, user.Roles...)
+	if err != nil {
+		return nil, status.Errorf(codes.Unauthenticated, "roles not found")
+	}
+	var perms permissions
+
+	for _, role := range roles {
+		if role.SU {
+			perms.su = true
+			break
+		}
+		if role.Read {
+			perms.read = append(perms.read, role.Spaces...)
+		}
+		if role.Write {
+			perms.write = append(perms.write, role.Spaces...)
+		}
+		if role.Delete {
+			perms.delete = append(perms.delete, role.Spaces...)
+		}
+		if role.Overwrite {
+			perms.overwrite = append(perms.overwrite, role.Spaces...)
+		}
+	}
+
+	return &perms, nil
 }
 
 func (interceptor *GRPCAuthInterceptor) Shutdown() error {

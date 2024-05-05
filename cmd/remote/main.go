@@ -62,6 +62,16 @@ func main() {
 		logger.Fatal("failed to create repositories", zap.Error(err))
 	}
 
+	// MARK: - controllers
+	usersController, err := users.New(repos.users)
+	if err != nil {
+		logger.Fatal("failed to create users controller", zap.Error(err))
+	}
+
+	rolesController, err := roles.New(repos.roles)
+	if err != nil {
+		logger.Fatal("failed to create roles controller", zap.Error(err))
+	}
 	// MARK: - auth
 	jwtManager, err := auth.NewJWTManager(
 		cfg.JWT.SecretKey,
@@ -70,18 +80,16 @@ func main() {
 	if err != nil {
 		logger.Fatal("failed to create jwt manager", zap.Error(err))
 	}
-	interceptor := auth.NewGRPCAuthInterceptor(jwtManager)
+	interceptor := auth.NewGRPCAuthInterceptor(jwtManager, rolesController, usersController)
 	defer interceptor.Shutdown() //@todo gracefully shutdown
 
-	// MARK: - controllers
-	usersController, err := users.New(jwtManager, repos.users, logger)
-	if err != nil {
-		logger.Fatal("failed to create users controller", zap.Error(err))
-	}
-
-	rolesController, err := roles.New(repos.roles)
-	if err != nil {
-		logger.Fatal("failed to create roles controller", zap.Error(err))
+	// MARK: - post init controllers
+	if usersController.PrintToken() {
+		tok, err := jwtManager.GenerateToken(users.SUID)
+		if err != nil {
+			logger.Fatal("failed to generate token for superuser", zap.Error(err))
+		}
+		logger.Info("superuser token", zap.String("token", tok))
 	}
 
 	// MARK: - grpc

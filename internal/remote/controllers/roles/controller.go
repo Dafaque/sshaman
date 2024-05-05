@@ -4,6 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+
+	"github.com/Dafaque/sshaman/internal/remote/errs"
 )
 
 type Controller interface {
@@ -39,6 +41,13 @@ func (rc *controller) Delete(ctx context.Context, id int64) error {
 }
 
 func (rc *controller) List(ctx context.Context) ([]Role, error) {
+	isPermitted, err := rc.isPermitted(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if !isPermitted {
+		return nil, errs.ErrNotPermitted
+	}
 	return rc.rolesRepository.List(ctx)
 }
 
@@ -49,7 +58,7 @@ func (rc *controller) Get(ctx context.Context, ids ...int64) ([]Role, error) {
 var errUnshureSuperuserRole = errors.New("failed to ensure superuser role")
 
 func (rc *controller) enshureSuperuser() error {
-	su, err := rc.Get(context.Background(), 0)
+	su, err := rc.Get(context.Background(), 1)
 	if err != nil {
 		if !errors.Is(err, sql.ErrNoRows) {
 			return errors.Join(errUnshureSuperuserRole, err)
@@ -72,4 +81,12 @@ func (rc *controller) enshureSuperuser() error {
 		return errors.Join(errUnshureSuperuserRole, err)
 	}
 	return nil
+}
+
+func (rc *controller) isPermitted(ctx context.Context) (bool, error) {
+	perms, ok := ctx.Value("permissions").(permissions)
+	if !ok {
+		return false, errors.New("permissions not found")
+	}
+	return !perms.SU(), nil
 }

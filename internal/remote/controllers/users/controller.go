@@ -4,11 +4,10 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-
-	"go.uber.org/zap"
-
-	"github.com/Dafaque/sshaman/internal/remote/auth"
 )
+
+// supersuser id
+const SUID int64 = 1
 
 type Controller interface {
 	Create(ctx context.Context, user *User) error
@@ -16,17 +15,19 @@ type Controller interface {
 	Get(ctx context.Context, userID int64) (*User, error)
 	Delete(ctx context.Context, userID int64) error
 	List(ctx context.Context) ([]User, error)
+	PrintToken() bool
 }
 
 type controller struct {
 	usersRepository usersRepository
+	suCreated       bool
 }
 
-func New(jwtManager *auth.JWTManager, usersRepository usersRepository, logger *zap.Logger) (Controller, error) {
+func New(usersRepository usersRepository) (Controller, error) {
 	controller := &controller{
 		usersRepository: usersRepository,
 	}
-	err := controller.enshureSuperuser(jwtManager, logger)
+	err := controller.enshureSuperuser()
 	if err != nil {
 		return nil, err
 	}
@@ -56,8 +57,8 @@ func (c *controller) List(ctx context.Context) ([]User, error) {
 
 var errUnshureSuperuser = errors.New("failed to ensure superuser")
 
-func (rc *controller) enshureSuperuser(jwtManager *auth.JWTManager, logger *zap.Logger) error {
-	su, err := rc.Get(context.Background(), 0)
+func (c *controller) enshureSuperuser() error {
+	su, err := c.Get(context.Background(), SUID)
 	if err != nil {
 		if !errors.Is(err, sql.ErrNoRows) {
 			return errors.Join(errUnshureSuperuser, err)
@@ -68,15 +69,15 @@ func (rc *controller) enshureSuperuser(jwtManager *auth.JWTManager, logger *zap.
 	}
 	user := &User{
 		Name:  "superuser",
-		Roles: []string{"su"},
+		Roles: []int64{SUID},
 	}
-	if err := rc.Create(context.Background(), user); err != nil {
+	if err := c.Create(context.Background(), user); err != nil {
 		return errors.Join(errUnshureSuperuser, err)
 	}
-	str, err := jwtManager.GenerateToken(user.ID)
-	if err != nil {
-		return errors.Join(errUnshureSuperuser, err)
-	}
-	logger.Named("enshureSuperuser").Info("superuser created", zap.String("token", str))
+	c.suCreated = true
 	return nil
+}
+
+func (c *controller) PrintToken() bool {
+	return c.suCreated
 }

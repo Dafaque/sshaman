@@ -2,10 +2,12 @@ package handler
 
 import (
 	"context"
+	"errors"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
+	"github.com/Dafaque/sshaman/internal/remote/errs"
 	remote "github.com/Dafaque/sshaman/pkg/remote/api"
 )
 
@@ -25,6 +27,28 @@ func (s *server) DeleteRole(ctx context.Context, req *remote.DeleteRoleRequest) 
 }
 
 func (s *server) ListRoles(ctx context.Context, req *remote.ListRolesRequest) (*remote.ListRolesResponse, error) {
-	// Implementation logic to list roles
-	return nil, status.Errorf(codes.Unimplemented, "method ListRoles not implemented")
+	roles, err := s.rolesController.List(ctx)
+	if err != nil {
+		if errors.Is(err, errs.ErrNotPermitted) {
+			return nil, status.Errorf(codes.PermissionDenied, err.Error())
+		}
+		return nil, status.Errorf(codes.Internal, err.Error())
+	}
+
+	var resp remote.ListRolesResponse
+
+	for _, role := range roles {
+		resp.Roles = append(resp.Roles, &remote.Role{
+			Id:          role.ID,
+			Name:        role.Name,
+			Description: role.Description,
+			Read:        role.Read,
+			Write:       role.Write,
+			Delete:      role.Delete,
+			Overwrite:   role.Overwrite,
+			Su:          role.SU,
+			Spaces:      role.Spaces,
+		})
+	}
+	return &resp, nil
 }
