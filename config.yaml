@@ -1,0 +1,19 @@
+server:
+  port: 50051
+postgres:
+  host: 127.0.0.1
+  port: 5432
+  user: postgres
+  password: password
+  dbname: postgres
+  sslmode: disable
+jwt:
+  issuer: "localhost"
+  secret_key: |
+    -----BEGIN EC PRIVATE KEY-----
+    MIGkAgEBBDAdJDHValeWcWFcTNuoHkQw7pwqB9bs7DQyZOnZsl6OlVt4bAhTUH5H
+    wjOh+RAyQKegBwYFK4EEACKhZANiAAR7h/3UNZ37q6+N/V6LZDvfCwKuAEfyAVU2
+    v7yGikguwjZQfzZ6cqypY2M+Mhy/fIpFEP9dkL4SKkA3aBzIMAmwNkT9GpieSsk9
+    FQZ1imor3O39JIe011bfq2lnwJRn7+4=
+    -----END EC PRIVATE KEY-----
+
