@@ -8,9 +8,17 @@ type permissions struct {
 	delete    []string
 	overwrite []string
 	su        bool
+	uid       int64
+}
+
+func (perms *permissions) UID() int64 {
+	return perms.uid
 }
 
 func (perms *permissions) Read(space string) bool {
+	if perms.isWildcard(space) {
+		return true
+	}
 	for _, s := range perms.read {
 		if s == space {
 			return true
@@ -20,6 +28,9 @@ func (perms *permissions) Read(space string) bool {
 }
 
 func (perms *permissions) Write(space string) bool {
+	if perms.isWildcard(space) {
+		return true
+	}
 	for _, s := range perms.write {
 		if s == space {
 			return true
@@ -29,6 +40,9 @@ func (perms *permissions) Write(space string) bool {
 }
 
 func (perms *permissions) Delete(space string) bool {
+	if perms.isWildcard(space) {
+		return true
+	}
 	for _, s := range perms.delete {
 		if s == space {
 			return true
@@ -38,6 +52,9 @@ func (perms *permissions) Delete(space string) bool {
 }
 
 func (perms *permissions) Overwrite(space string) bool {
+	if perms.isWildcard(space) {
+		return true
+	}
 	for _, s := range perms.overwrite {
 		if s == space {
 			return true
@@ -48,6 +65,10 @@ func (perms *permissions) Overwrite(space string) bool {
 
 func (perms *permissions) SU() bool {
 	return perms.su
+}
+
+func (perms *permissions) isWildcard(space string) bool {
+	return space == "*"
 }
 
 type RPCCredentials struct {

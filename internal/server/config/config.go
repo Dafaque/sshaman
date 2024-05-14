@@ -7,9 +7,15 @@ import (
 )
 
 type Config struct {
+	App      AppConfig      `yaml:"app"`
 	Server   ServerConfig   `yaml:"server"`
 	Postgres PostgresConfig `yaml:"postgres"`
 	JWT      JWTConfig      `yaml:"jwt"`
+}
+
+type AppConfig struct {
+	// Key for encryption user's credentials
+	Secret string `yaml:"secret"`
 }
 
 type ServerConfig struct {

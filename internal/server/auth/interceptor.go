@@ -106,6 +106,7 @@ func (interceptor *GRPCAuthInterceptor) authorize(ctx context.Context) (*permiss
 		return nil, status.Errorf(codes.Unauthenticated, "roles not found")
 	}
 	var perms permissions
+	perms.uid = user.ID
 
 	for _, role := range roles {
 		if role.SU {

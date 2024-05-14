@@ -1,11 +1,8 @@
 package main
 
 import (
-	"crypto/aes"
-	"crypto/cipher"
 	"errors"
 	"fmt"
-	"hash/fnv"
 	"os"
 	"path/filepath"
 
@@ -13,6 +10,7 @@ import (
 	"golang.org/x/term"
 
 	"github.com/Dafaque/sshaman/internal/credentials"
+	"github.com/Dafaque/sshaman/internal/encryption"
 )
 
 func importCredentials(local credentials.Manager, remote credentials.Manager) error {
@@ -34,19 +32,7 @@ func importCredentials(local credentials.Manager, remote credentials.Manager) er
 		}
 		println()
 	}
-	key := fnv.New128a()
-	key.Write(password)
-	c, err := aes.NewCipher(key.Sum(nil))
-	if err != nil {
-		return err
-	}
-	gcm, err := cipher.NewGCM(c)
-	if err != nil {
-		return err
-	}
-	nonce, ciphertext := encrypted[:gcm.NonceSize()], encrypted[gcm.NonceSize():]
-
-	decrypted, err := gcm.Open(nil, nonce, ciphertext, nil)
+	decrypted, err := encryption.DecryptWithSecret(password, encrypted)
 	if err != nil {
 		return err
 	}

@@ -1,12 +1,7 @@
 package main
 
 import (
-	"crypto/aes"
-	"crypto/cipher"
-	"crypto/rand"
 	"fmt"
-	"hash/fnv"
-	"io"
 	"os"
 	"path/filepath"
 
@@ -14,6 +9,7 @@ import (
 	"golang.org/x/term"
 
 	"github.com/Dafaque/sshaman/internal/credentials"
+	"github.com/Dafaque/sshaman/internal/encryption"
 )
 
 const (
@@ -46,23 +42,10 @@ func exportCredentials(local credentials.Manager, remote credentials.Manager) er
 		}
 		println()
 	}
-	key := fnv.New128a()
-	key.Write(password)
-	c, err := aes.NewCipher(key.Sum(nil))
+	encrypted, err := encryption.EncryptWithSecret(password, data)
 	if err != nil {
 		return err
 	}
-	key.Reset()
-	gcm, err := cipher.NewGCM(c)
-	if err != nil {
-		return err
-	}
-	nonce := make([]byte, gcm.NonceSize())
-	_, err = io.ReadFull(rand.Reader, nonce)
-	if err != nil {
-		return err
-	}
-	encrypted := gcm.Seal(nonce, nonce, data, nil)
 
 	// MARK: - Write
 	pwd, err := os.Getwd()
