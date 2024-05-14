@@ -40,13 +40,44 @@ func (s *server) CreateRole(ctx context.Context, req *api.CreateRoleRequest) (*a
 }
 
 func (s *server) UpdateRole(ctx context.Context, req *api.UpdateRoleRequest) (*api.UpdateRoleResponse, error) {
-	// Implementation logic to update a role
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
+	role := &roles.Role{
+		ID:          req.Role.Id,
+		Name:        req.Role.Name,
+		Description: req.Role.Description,
+		Read:        req.Role.Read,
+		Write:       req.Role.Write,
+		Delete:      req.Role.Delete,
+		Overwrite:   req.Role.Overwrite,
+		SU:          req.Role.Su,
+		Spaces:      req.Role.Spaces,
+	}
+	err := s.rolesController.Update(ctx, role)
+	if err != nil {
+		if errors.Is(err, errs.ErrNotPermitted) {
+			return nil, status.Errorf(codes.PermissionDenied, err.Error())
+		}
+		return nil, status.Errorf(codes.Internal, err.Error())
+	}
+	var success bool
+	if role.ID > 0 {
+		success = true
+	}
+	return &api.UpdateRoleResponse{
+		Success: success,
+	}, nil
 }
 
 func (s *server) DeleteRole(ctx context.Context, req *api.DeleteRoleRequest) (*api.DeleteRoleResponse, error) {
-	// Implementation logic to delete a role
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
+	err := s.rolesController.Delete(ctx, req.Id)
+	if err != nil {
+		if errors.Is(err, errs.ErrNotPermitted) {
+			return nil, status.Errorf(codes.PermissionDenied, err.Error())
+		}
+		return nil, status.Errorf(codes.Internal, err.Error())
+	}
+	return &api.DeleteRoleResponse{
+		Success: true,
+	}, nil
 }
 
 func (s *server) ListRoles(ctx context.Context, req *api.ListRolesRequest) (*api.ListRolesResponse, error) {
