@@ -75,16 +75,23 @@ func (r *roleRepository) Update(ctx context.Context, role *roles.Role) error {
 	if err != nil {
 		return err
 	}
-
+	setMap := make(map[string]interface{})
+	if role.Name != "" {
+		setMap["name"] = role.Name
+	}
+	if role.Description != "" {
+		setMap["description"] = role.Description
+	}
+	if len(role.Spaces) > 0 {
+		setMap["spaces"] = pq.Array(role.Spaces)
+	}
+	setMap["read"] = role.Read
+	setMap["write"] = role.Write
+	setMap["delete"] = role.Delete
+	setMap["overwrite"] = role.Overwrite
+	setMap["superuser"] = role.SU
 	query := squirrel.Update(tableName).
-		Set("name", role.Name).
-		Set("description", role.Description).
-		Set("read", role.Read).
-		Set("write", role.Write).
-		Set("delete", role.Delete).
-		Set("overwrite", role.Overwrite).
-		Set("su", role.SU).
-		Set("spaces", pq.Array(role.Spaces)).
+		SetMap(setMap).
 		Where(squirrel.Eq{"id": role.ID}).
 		PlaceholderFormat(squirrel.Dollar).
 		RunWith(tx)
@@ -121,6 +128,7 @@ func (r *roleRepository) Delete(ctx context.Context, id int64) error {
 func (r *roleRepository) List(ctx context.Context) ([]roles.Role, error) {
 	query := squirrel.Select(columns...).
 		From(tableName).
+		OrderBy("id").
 		PlaceholderFormat(squirrel.Dollar).
 		RunWith(r.db)
 

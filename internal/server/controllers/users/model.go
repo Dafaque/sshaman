@@ -5,3 +5,9 @@ type User struct {
 	Name  string
 	Roles []int64
 }
+
+type internalOperationsPermissions struct{}
+
+func (p internalOperationsPermissions) SU() bool {
+	return true
+}

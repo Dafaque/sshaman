@@ -264,6 +264,63 @@
                 "-s", "*",
                 "-super",
             ]
+        },{
+            "name": "Server CLI: update user",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/cmd/servercli",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/servercli/",
+            "args": [
+                "-update",
+                "users",
+                "-id", "2",
+                "-name", "test_updated",
+                "-roles", "2",
+            ]
+        },{
+            "name": "Server CLI: update role",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/cmd/servercli",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/servercli/",
+            "args": [
+                "-update",
+                "roles",
+                "-id", "2",
+                "-name", "test_updated",
+                "-s", "test",
+                "-r", "-w"
+            ]
+        },{
+            "name": "Server CLI: delete user",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/cmd/servercli",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/servercli/",
+            "args": [
+                "-delete",
+                "users",
+                "-id", "2",
+            ]
+        },{
+            "name": "Server CLI: delete role",
+            "type": "go",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/cmd/servercli",
+            "console": "integratedTerminal",
+            "mode": "auto",
+            "program": "cmd/servercli/",
+            "args": [
+                "-delete",
+                "roles",
+                "-id", "2",
+            ]
         }
     ]
 }

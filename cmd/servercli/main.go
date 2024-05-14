@@ -17,7 +17,7 @@ import (
 
 const (
 	address = "localhost:50051"
-	token   = "eyJhbGciOiJFUzM4NCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI0OTk2MGRlNTg4MGU4YzY4NzQzNDE3MGY2NDc2NjA1YjhmZTRhZWI5YTI4NjMyYzc5OTVjZjNiYTgzMWQ5NzYzIiwiZXhwIjoxNzE1MDA3MTY3LCJpYXQiOjE3MTQ5MjA3NjcsImlzcyI6IjQ5OTYwZGU1ODgwZThjNjg3NDM0MTcwZjY0NzY2MDViOGZlNGFlYjlhMjg2MzJjNzk5NWNmM2JhODMxZDk3NjMiLCJuYmYiOjE3MTQ5MjA3NjcsInN1YiI6IjEifQ.ps7eJ7VRdJW-MbaPTbltxMCJkdt7gSnrpm7dJXgEU6qYv4HQMdAK0eIS-rJVzMMBu6kZBUujXZ9eICyNaAgPA9SqtpMeTYDWyAi2np59IPKOe6Eor00F05MmKgdpQtPT"
+	token   = "eyJhbGciOiJFUzM4NCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI0OTk2MGRlNTg4MGU4YzY4NzQzNDE3MGY2NDc2NjA1YjhmZTRhZWI5YTI4NjMyYzc5OTVjZjNiYTgzMWQ5NzYzIiwiZXhwIjoxNzE1Nzg3NDczLCJpYXQiOjE3MTU3MDEwNzMsImlzcyI6IjQ5OTYwZGU1ODgwZThjNjg3NDM0MTcwZjY0NzY2MDViOGZlNGFlYjlhMjg2MzJjNzk5NWNmM2JhODMxZDk3NjMiLCJuYmYiOjE3MTU3MDEwNzMsInN1YiI6IjEifQ.xq6qX0FMS2VoNDmGyFxpxd1ZkqyoYJNY0nbwMW-03rOv0DIpa7nz3onHb0XcMlRTgTP4pcMyi1xm73nFdZCJeiKnf4tCt_0XMpHGKORINJakJTMmsL448WrmQ2L8NOcC"
 )
 
 const (
@@ -33,7 +33,7 @@ var (
 	flagUpdate string
 	flagDelete string
 
-	flagID   = flag.Int("id", -1, "ID of the entity to get, set or delete")
+	flagID   = flag.Int64("id", -1, "ID of the entity to get, set or delete")
 	flagName = flag.String("name", "", "name of the entity to create")
 
 	// MARK: - flags for Roles
@@ -80,6 +80,24 @@ func main() {
 			op = createUser
 		default:
 			log.Fatalf("invalid target entity: %s", flagCreate)
+		}
+	case flagUpdate != "":
+		switch flagUpdate {
+		case entityRoles:
+			op = updateRole
+		case entityUsers:
+			op = updateUser
+		default:
+			log.Fatalf("invalid target entity: %s", flagUpdate)
+		}
+	case flagDelete != "":
+		switch flagDelete {
+		case entityRoles:
+			op = deleteRole
+		case entityUsers:
+			op = deleteUser
+		default:
+			log.Fatalf("invalid target entity: %s", flagDelete)
 		}
 	default:
 		log.Println("no operation selected")

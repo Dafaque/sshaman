@@ -47,14 +47,9 @@ func createUser(ctx context.Context, client server.RemoteCredentialsManagerClien
 	if *flagRoles == "" {
 		return errors.New("roles are required")
 	}
-	roleIDs := strings.Split(*flagRoles, ",")
-	var roles []int64
-	for _, id := range roleIDs {
-		roleID, err := strconv.ParseInt(id, 10, 64)
-		if err != nil {
-			return err
-		}
-		roles = append(roles, roleID)
+	roles, err := makeRolesArray(*flagRoles)
+	if err != nil {
+		return err
 	}
 	r, err := client.CreateUser(ctx, &server.CreateUserRequest{
 		User: &server.User{
@@ -69,4 +64,17 @@ func createUser(ctx context.Context, client server.RemoteCredentialsManagerClien
 		log.Printf("User %s created", *flagName)
 	}
 	return nil
+}
+
+func makeRolesArray(roles string) ([]int64, error) {
+	roleIDs := strings.Split(roles, ",")
+	var iroles []int64
+	for _, id := range roleIDs {
+		roleID, err := strconv.ParseInt(id, 10, 64)
+		if err != nil {
+			return nil, err
+		}
+		iroles = append(iroles, roleID)
+	}
+	return iroles, nil
 }

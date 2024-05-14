@@ -75,6 +75,9 @@ func (c *controller) Delete(ctx context.Context, userID int64) error {
 	if !isPermitted {
 		return errs.ErrNotPermitted
 	}
+	if userID == SUID {
+		return errors.New("can't delete superuser")
+	}
 	return c.usersRepository.Delete(ctx, userID)
 }
 
@@ -89,13 +92,18 @@ func (c *controller) List(ctx context.Context) ([]User, error) {
 	return c.usersRepository.List(ctx)
 }
 
-var errUnshureSuperuser = errors.New("failed to ensure superuser")
+var errEnshureSuperuser = errors.New("failed to ensure superuser")
 
 func (c *controller) enshureSuperuser() error {
-	su, err := c.Get(context.Background(), SUID)
+	ctx := context.WithValue(
+		context.Background(),
+		"permissions",
+		internalOperationsPermissions{},
+	)
+	su, err := c.Get(ctx, SUID)
 	if err != nil {
 		if !errors.Is(err, sql.ErrNoRows) {
-			return errors.Join(errUnshureSuperuser, err)
+			return errors.Join(errEnshureSuperuser, err)
 		}
 	}
 	if su != nil {
@@ -105,8 +113,8 @@ func (c *controller) enshureSuperuser() error {
 		Name:  "superuser",
 		Roles: []int64{SUID},
 	}
-	if err := c.Create(context.Background(), user); err != nil {
-		return errors.Join(errUnshureSuperuser, err)
+	if err := c.Create(ctx, user); err != nil {
+		return errors.Join(errEnshureSuperuser, err)
 	}
 	c.suCreated = true
 	return nil

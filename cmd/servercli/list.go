@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"os"
@@ -16,9 +17,33 @@ func listRoles(ctx context.Context, client server.RemoteCredentialsManagerClient
 		return err
 	}
 	tw := tabwriter.NewWriter(os.Stdout, 1, 1, 2, ' ', 0)
-	fmt.Fprintf(tw, "ID\tName\tspaces\n")
+	fmt.Fprintf(tw, "ID\tName\tPermissions\tSpaces\n")
 	for _, role := range r.GetRoles() {
-		fmt.Fprintf(tw, "%d\t%s\t%s\n", role.GetId(), role.GetName(), strings.Join(role.GetSpaces(), ", "))
+		perms := bytes.NewBuffer(nil)
+		if role.GetRead() {
+			perms.WriteString("r")
+		}
+		if role.GetWrite() {
+			perms.WriteString("w")
+		}
+		if role.GetDelete() {
+			perms.WriteString("d")
+		}
+		if role.GetOverwrite() {
+			perms.WriteString("o")
+		}
+		if role.GetSu() {
+			perms.Reset()
+			perms.WriteString("su")
+		}
+		fmt.Fprintf(
+			tw,
+			"%d\t%s\t%s\t%s\n",
+			role.GetId(),
+			role.GetName(),
+			perms.String(),
+			strings.Join(role.GetSpaces(), ", "),
+		)
 	}
 	tw.Flush()
 	return nil

@@ -11,3 +11,9 @@ type Role struct {
 	SU          bool     // super user access
 	Spaces      []string // appliable spaces
 }
+
+type internalOperationsPermissions struct{}
+
+func (p internalOperationsPermissions) SU() bool {
+	return true
+}

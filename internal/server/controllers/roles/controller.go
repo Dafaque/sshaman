@@ -4,9 +4,13 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"fmt"
 
 	"github.com/Dafaque/sshaman/internal/server/errs"
+	"github.com/lib/pq"
 )
+
+const SUID int64 = 1
 
 type Controller interface {
 	Create(ctx context.Context, role *Role) error
@@ -47,7 +51,16 @@ func (rc *controller) Update(ctx context.Context, role *Role) error {
 	if !isPermitted {
 		return errs.ErrNotPermitted
 	}
-	return rc.rolesRepository.Update(ctx, role)
+	if role.ID == SUID {
+		return errors.New("can't update superuser role")
+	}
+	err = rc.rolesRepository.Update(ctx, role)
+	if pgErr, ok := err.(*pq.Error); ok {
+		if pgErr.Code == "23505" {
+			return fmt.Errorf("role %s already exists", role.Name)
+		}
+	}
+	return err
 }
 
 func (rc *controller) Delete(ctx context.Context, id int64) error {
@@ -57,6 +70,9 @@ func (rc *controller) Delete(ctx context.Context, id int64) error {
 	}
 	if !isPermitted {
 		return errs.ErrNotPermitted
+	}
+	if id == SUID {
+		return errors.New("can't delete superuser role")
 	}
 	return rc.rolesRepository.Delete(ctx, id)
 }
@@ -80,7 +96,12 @@ func (rc *controller) Get(ctx context.Context, ids ...int64) ([]Role, error) {
 var errUnshureSuperuserRole = errors.New("failed to ensure superuser role")
 
 func (rc *controller) enshureSuperuser() error {
-	su, err := rc.Get(context.Background(), 1)
+	ctx := context.WithValue(
+		context.Background(),
+		"permissions",
+		internalOperationsPermissions{},
+	)
+	su, err := rc.Get(ctx, SUID)
 	if err != nil {
 		if !errors.Is(err, sql.ErrNoRows) {
 			return errors.Join(errUnshureSuperuserRole, err)
@@ -99,7 +120,7 @@ func (rc *controller) enshureSuperuser() error {
 		SU:          true,
 		Spaces:      []string{"*"},
 	}
-	if err := rc.Create(context.Background(), role); err != nil {
+	if err := rc.Create(ctx, role); err != nil {
 		return errors.Join(errUnshureSuperuserRole, err)
 	}
 	return nil

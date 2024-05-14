@@ -61,9 +61,18 @@ func (r *repository) Update(ctx context.Context, user users.User) error {
 		return err
 	}
 
+	setMap := make(map[string]interface{})
+	if user.Name != "" {
+		setMap["name"] = user.Name
+	}
+	if user.Roles != nil {
+		setMap["roles"] = pq.Array(user.Roles)
+	} else {
+		setMap["roles"] = pq.Array([]int64{})
+	}
+
 	query := squirrel.Update(tableName).
-		Set("name", user.Name).
-		Set("roles", pq.Array(user.Roles)).
+		SetMap(setMap).
 		Where(squirrel.Eq{"id": user.ID}).
 		PlaceholderFormat(squirrel.Dollar).
 		RunWith(tx)
@@ -97,6 +106,7 @@ func (r *repository) Get(ctx context.Context, userID int64) (*users.User, error)
 func (r *repository) List(ctx context.Context) ([]users.User, error) {
 	query := squirrel.Select(columns...).
 		From(tableName).
+		OrderBy("id").
 		PlaceholderFormat(squirrel.Dollar).
 		RunWith(r.db)
 
