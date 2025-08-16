@@ -9,7 +9,6 @@ import (
 
 	"github.com/Dafaque/sshaman/internal/config"
 	"github.com/Dafaque/sshaman/internal/credentials"
-	"github.com/Dafaque/sshaman/internal/credentials/local"
 )
 
 const (
@@ -17,10 +16,7 @@ const (
 )
 
 var (
-	flagLocal  bool
-	flagRemote bool
-
-	flagAlias string
+	flagName string
 
 	//? MARK: - list options
 	flagList bool
@@ -38,78 +34,67 @@ var (
 
 	//! MARK: - Danger zone
 	flagForce bool
-	flagDrop  bool
 )
 
 const (
 	cmdAdd     string = "add"
 	cmdConnect string = "connect"
 	cmdList    string = "list"
-	cmdDelete  string = "delete"
+	cmdRmove   string = "remove"
 	cmdDrop    string = "drop"
 	cmdExport  string = "export"
 	cmdImport  string = "import"
 )
 
-type operation func(credentials.Manager, credentials.Manager) error
+type operation func(*credentials.Manager) error
 
 var errRemoteNotConfigured error = errors.New("remote credentials manager is not configured")
 
 func main() {
 	// MARK: - Add connection
 	addFlags := flag.NewFlagSet(cmdAdd, flag.ExitOnError)
-	addFlags.StringVar(&flagAlias, "alias", emptyString, "new ssh connection's alias")
-	addFlags.StringVar(&flagHost, "host", emptyString, "new ssh connection's address")
-	addFlags.IntVar(&flagPort, "port", 22, "new ssh connection's port")
-	addFlags.StringVar(&flagUser, "user", emptyString, "new ssh connection's user")
-	addFlags.StringVar(&flagKeyFilePath, "key", emptyString, "new ssh connection's key file path")
-	addFlags.BoolVar(&flagSkipPassword, "skip-password", false, "skip password prompt")
-	addFlags.BoolVar(&flagSkipPassphrase, "skip-passphrase", false, "skip key's passphrase prompt")
-	addFlags.BoolVar(&flagLocal, "local", true, "use local storage")
-	addFlags.BoolVar(&flagRemote, "remote", false, "use remote storage (unimplementer)") //@todo implement
-	addFlags.BoolVar(&flagForce, "force", false, "force operation")
+	addFlags.StringVar(&flagName, "n", emptyString, "new ssh connection's alias")
+	addFlags.StringVar(&flagHost, "h", emptyString, "new ssh connection's address")
+	addFlags.IntVar(&flagPort, "p", 22, "new ssh connection's port")
+	addFlags.StringVar(&flagUser, "u", emptyString, "new ssh connection's user")
+	addFlags.StringVar(&flagKeyFilePath, "k", emptyString, "new ssh connection's key file path")
+	addFlags.BoolVar(&flagSkipPassword, "no-pw", false, "skip password prompt")
+	addFlags.BoolVar(&flagSkipPassphrase, "no-pp", false, "skip key's passphrase prompt")
+	addFlags.BoolVar(&flagForce, "f", false, "force operation")
 
 	// MARK: - Connect
 	conectFlags := flag.NewFlagSet(cmdConnect, flag.ExitOnError)
-	conectFlags.StringVar(&flagAlias, "alias", emptyString, "ssh connection's allias to conect")
-	conectFlags.BoolVar(&flagLocal, "local", true, "use local storage")
-	conectFlags.BoolVar(&flagRemote, "remote", false, "use remote storage (unimplemented)") //@todo implement
+	conectFlags.StringVar(&flagName, "n", emptyString, "ssh connection's allias to conect")
 
 	// MARK: - List connections
 	listFlags := flag.NewFlagSet(cmdList, flag.ExitOnError)
-	listFlags.BoolVar(&flagLocal, "local", true, "use local storage")
-	listFlags.BoolVar(&flagRemote, "remote", false, "use remote storage (unimplemented)") //@todo implement
 
 	// MARK: - Delete connection
-	delFlags := flag.NewFlagSet(cmdDelete, flag.ExitOnError)
-	delFlags.StringVar(&flagAlias, "alias", emptyString, "ssh connection's allias to conect")
-	delFlags.BoolVar(&flagLocal, "local", true, "use local storage")
-	delFlags.BoolVar(&flagRemote, "remote", false, "use remote storage (unimplemented)") //@todo implement
+	rmFlags := flag.NewFlagSet(cmdRmove, flag.ExitOnError)
+	rmFlags.StringVar(&flagName, "n", emptyString, "ssh connection's allias to conect")
 
 	// MARK: - Drop all connections
 	dropFlags := flag.NewFlagSet(cmdDrop, flag.ExitOnError)
-	dropFlags.BoolVar(&flagLocal, "local", true, "use local storage")
-	dropFlags.BoolVar(&flagRemote, "remote", false, "use remote storage (unimplemented)") //@todo implement
-	dropFlags.BoolVar(&flagForce, "force", false, "force operation")
+	dropFlags.BoolVar(&flagForce, "f", false, "force operation")
 
 	// MARK: - Export
 	exportFlags := flag.NewFlagSet(cmdExport, flag.ExitOnError)
-	exportFlags.BoolVar(&flagSkipPassword, "skip-password", false, "skip password prompt")
+	exportFlags.BoolVar(&flagSkipPassword, "no-pw", false, "skip password prompt")
 
 	// MARK: - Import
 	importFlags := flag.NewFlagSet(cmdImport, flag.ExitOnError)
-	importFlags.BoolVar(&flagDryRun, "dry-run", false, "view what would be imported")
-	importFlags.BoolVar(&flagSkipPassword, "skip-password", false, "skip password prompt")
+	importFlags.BoolVar(&flagDryRun, "dry", false, "view what would be imported")
+	importFlags.BoolVar(&flagSkipPassword, "no-pw", false, "skip password prompt")
 
 	// MARK: - App details
-	ver := flag.Bool("version", false, "show app details")
+	ver := flag.Bool("v", false, "show app details")
 	flag.Parse()
 
 	usage := func() {
 		addFlags.Usage()
 		conectFlags.Usage()
-		listFlags.Usage()
-		delFlags.Usage()
+		// listFlags.Usage() //? no args
+		rmFlags.Usage()
 		dropFlags.Usage()
 		importFlags.Usage()
 		exportFlags.Usage()
@@ -136,13 +121,13 @@ func main() {
 		os.Exit(1)
 	}
 
-	localManager, err := local.NewManager(cfg)
+	manager, err := credentials.New(cfg)
 	if err != nil {
 		println(err.Error())
 		os.Exit(1)
 	}
 	defer func() {
-		if err := localManager.Done(); err != nil {
+		if err := manager.Done(); err != nil {
 			println(err.Error())
 			os.Exit(1)
 		}
@@ -160,9 +145,9 @@ func main() {
 	case cmdList:
 		flagset = listFlags
 		op = listCredentials
-	case cmdDelete:
-		flagset = delFlags
-		op = deleteCredentials
+	case cmdRmove:
+		flagset = rmFlags
+		op = removeCredentials
 	case cmdDrop:
 		flagset = dropFlags
 		op = dropCredentials
@@ -183,7 +168,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err := op(localManager, nil); err != nil {
+	if err := op(manager); err != nil {
 		println(err.Error())
 		os.Exit(1)
 	}

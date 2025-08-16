@@ -5,6 +5,8 @@ import (
 	"net"
 	"os"
 	"os/signal"
+	"syscall"
+	"time"
 
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/term"
@@ -14,7 +16,6 @@ import (
 
 type SshClient struct {
 	Config *ssh.ClientConfig
-	// @todo for future errors verbosing
 	Server string
 }
 
@@ -32,7 +33,7 @@ func NewSshClient(creds *credentials.Credentials) (*SshClient, error) {
 		return nil, err
 	}
 	config := &ssh.ClientConfig{
-		User: creds.Username,
+		User: creds.UserName,
 		Auth: auth,
 		HostKeyCallback: func(hostname string, remote net.Addr, key ssh.PublicKey) error {
 			// @todo use OpenSSH's known_hosts file
@@ -66,10 +67,14 @@ func (s *SshClient) Loop() error {
 		for sig := range c {
 			var sessig ssh.Signal
 			switch sig {
-			case os.Interrupt:
+			case syscall.SIGINT:
 				sessig = ssh.SIGINT
+			case syscall.SIGKILL:
+				sessig = ssh.SIGKILL
+			case syscall.SIGTERM:
+				sessig = ssh.SIGTERM
 			default:
-				break
+				continue
 			}
 			if err := session.Signal(sessig); err != nil {
 				// @todo chan
@@ -106,5 +111,28 @@ func (s *SshClient) Loop() error {
 	if err := session.Shell(); err != nil {
 		return err
 	}
+	ticker := time.NewTicker(1 * time.Second)
+	defer ticker.Stop()
+	go func() {
+		for {
+			neww, newh, err := term.GetSize(fd)
+			if err != nil {
+				continue
+			}
+			if neww == 0 || newh == 0 {
+				continue
+			}
+			if w == neww && h == newh {
+				continue
+			}
+			err = session.WindowChange(newh, neww)
+			if err != nil {
+				break
+			}
+			w = neww
+			h = newh
+			<-ticker.C
+		}
+	}()
 	return session.Wait()
 }

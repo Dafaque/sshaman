@@ -12,8 +12,7 @@ const (
 )
 
 type Config struct {
-	Home          string
-	EncryptionKey []byte
+	Home string
 }
 
 func NewConfig() (*Config, error) {
