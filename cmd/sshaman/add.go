@@ -12,28 +12,16 @@ import (
 	"github.com/Dafaque/sshaman/internal/credentials"
 )
 
-func addConnection(local credentials.Manager, remote credentials.Manager) error {
+func addConnection(manager *credentials.Manager) error {
 	creds, err := makeNewCredentials()
 	if err != nil {
 		return err
 	}
 
-	if flagLocal {
-		if err := local.Set(creds, flagForce); err != nil {
-			return err
-		}
-		fmt.Println("local credentials added for", flagAlias)
+	if err := manager.Set(creds, flagForce); err != nil {
+		return err
 	}
-
-	if flagRemote {
-		if remote == nil {
-			return errRemoteNotConfigured
-		}
-		if err := remote.Set(creds, flagForce); err != nil {
-			return err
-		}
-		fmt.Println("remote credentials added for", flagAlias)
-	}
+	fmt.Println("local credentials added for", flagName)
 
 	return nil
 }
@@ -47,15 +35,15 @@ func makeNewCredentials() (*credentials.Credentials, error) {
 		return nil, errors.New("user required")
 	}
 
-	if flagAlias == emptyString {
+	if flagName == emptyString {
 		return nil, errors.New("alias required")
 	}
 
 	var creds credentials.Credentials = credentials.Credentials{
-		Alias:    flagAlias,
+		Name:     flagName,
 		Host:     flagHost,
 		Port:     flagPort,
-		Username: flagUser,
+		UserName: flagUser,
 	}
 
 	fd := int(os.Stdin.Fd())

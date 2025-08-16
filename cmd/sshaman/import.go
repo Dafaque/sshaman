@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"hash/fnv"
+	"log"
 	"os"
 	"path/filepath"
 
@@ -15,7 +16,7 @@ import (
 	"github.com/Dafaque/sshaman/internal/credentials"
 )
 
-func importCredentials(local credentials.Manager, remote credentials.Manager) error {
+func importCredentials(manager *credentials.Manager) error {
 	wd, err := os.Getwd()
 	if err != nil {
 		return err
@@ -62,18 +63,15 @@ func importCredentials(local credentials.Manager, remote credentials.Manager) er
 		return nil
 	}
 	for _, cred := range creds {
-		if cred.Source != nil {
-			continue
-		}
-		err = local.Set(cred, flagForce)
+		err = manager.Set(cred, flagForce)
 		if err != nil {
 			if errors.Is(err, credentials.ErrCredentialsExist) {
-				fmt.Println("Credentials already exists, skipping: ", cred.Alias)
+				fmt.Println("Credentials already exists, skipping: ", cred.Name)
 				continue
 			}
 			return err
 		}
 	}
-	println("Credentials imported")
-	return listCredentials(local, remote)
+	log.Println("Credentials imported")
+	return listCredentials(manager)
 }

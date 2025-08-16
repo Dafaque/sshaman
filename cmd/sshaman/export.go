@@ -20,15 +20,10 @@ const (
 	defaultDumpFileName = "sshaman.enc"
 )
 
-func exportCredentials(local credentials.Manager, remote credentials.Manager) error {
-	creds, err := getCredentialsList(local, nil)
+func exportCredentials(manager *credentials.Manager) error {
+	creds, err := getCredentialsList(manager)
 	if err != nil {
 		return err
-	}
-	for _, cred := range creds {
-		if cred.Local {
-			cred.Source = nil
-		}
 	}
 
 	data, err := msgpack.Marshal(creds)

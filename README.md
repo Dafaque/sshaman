@@ -1,6 +1,4 @@
 # SSHaMan
-![sshaman logo by kandinsky 3.0](assets/logo_kandinsky3.0_256.jpg "SSHaMan")
-
 SSHaMan is open-source SSH connections manager written in go.
 
 # Install
@@ -15,12 +13,12 @@ go install github.com/Dafaque/sshaman/cmd/sshaman@latest
 Command bellow will help you create new credentials for `localhost:22` with user `admin` and ssh key `~/.ssh/id_ed25519`:
 ```shell
 sshaman add \
-    -alias myfirstserver \
-    -host localhost \
-    -user admin \
-    -key ~/.ssh/id_ed25519 \
-    -skip-password \
-    -skip-passphrase
+    -n myfirstserver \
+    -h localhost \
+    -u admin \
+    -k ~/.ssh/id_ed25519 \
+    -no-pw \
+    -no-pp
 ```
 ## Edit credentils
 Commnd bellow will override `myfirstserver` with user `user` and password authentication:
@@ -37,7 +35,7 @@ sshaman list
 ```
 ## Connect using created alias
 ```shell
-sshaman connect -alias myfirstserver
+sshaman connect -n myfirstserver
 ```
 ## Export credentials
 To create `sshaman.enc` in the current directory run:
@@ -58,7 +56,7 @@ sshaman import
 ## Delete credentials
 Command below will delete credentials
 ```shell
-sshaman delete -alias myfirstserver
+sshaman remove -n myfirstserver
 ```
 > [!CAUTION]
 > This operation is irreversible.
@@ -71,71 +69,39 @@ sshaman drop
 > This operation is irreversible.
 
 ## All commands
-```shell
-sshaman -h
+```
 Usage of add:
-  -alias string
-        new ssh connection's alias
-  -force
-        force operation
-  -host string
+  -f    force operation
+  -h string
         new ssh connection's address
-  -key string
+  -k string
         new ssh connection's key file path
-  -local
-        use local storage (default true)
-  -port int
-        new ssh connection's port (default 22)
-  -remote
-        use remote storage (unimplementer)
-  -skip-passphrase
+  -n string
+        new ssh connection's alias
+  -no-pp
         skip key's passphrase prompt
-  -skip-password
+  -no-pw
         skip password prompt
-  -user string
+  -p int
+        new ssh connection's port (default 22)
+  -u string
         new ssh connection's user
 Usage of connect:
-  -alias string
+  -n string
         ssh connection's allias to conect
-  -local
-        use local storage (default true)
-  -remote
-        use remote storage (unimplemented)
-Usage of list:
-  -local
-        use local storage (default true)
-  -remote
-        use remote storage (unimplemented)
-Usage of delete:
-  -alias string
+Usage of remove:
+  -n string
         ssh connection's allias to conect
-  -local
-        use local storage (default true)
-  -remote
-        use remote storage (unimplemented)
 Usage of drop:
-  -force
-        force operation
-  -local
-        use local storage (default true)
-  -remote
-        use remote storage (unimplemented)
+  -f    force operation
 Usage of import:
-  -dry-run
+  -dry
         view what would be imported
-  -skip-password
+  -no-pw
         skip password prompt
 Usage of export:
-  -skip-password
+  -no-pw
         skip password prompt
-Usage of sshaman:
-  -version
-        show app details
+Usage sshaman:
+  -v    show app details
 ```
-
-# ToDo
-- Add Homebrew release
-- Add apt/snap release
-- Add nix derivation
-- a.k.a OpenSSH's known_hosts handle
-- Remote credentials repository
