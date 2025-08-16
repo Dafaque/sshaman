@@ -9,7 +9,7 @@ import (
 	"github.com/dgraph-io/badger/v4"
 	"github.com/vmihailenco/msgpack"
 
-	"github.com/Dafaque/sshaman/internal/config"
+	"github.com/Dafaque/sshaman/v2/internal/config"
 )
 
 const (

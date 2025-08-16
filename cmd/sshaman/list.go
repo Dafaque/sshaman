@@ -5,7 +5,7 @@ import (
 	"os"
 	"text/tabwriter"
 
-	"github.com/Dafaque/sshaman/internal/credentials"
+	"github.com/Dafaque/sshaman/v2/internal/credentials"
 )
 
 func listCredentials(manager *credentials.Manager) error {

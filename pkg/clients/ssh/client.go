@@ -11,7 +11,7 @@ import (
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/term"
 
-	"github.com/Dafaque/sshaman/internal/credentials"
+	"github.com/Dafaque/sshaman/v2/internal/credentials"
 )
 
 type SshClient struct {

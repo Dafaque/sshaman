@@ -7,8 +7,8 @@ import (
 	"os"
 	"runtime/debug"
 
-	"github.com/Dafaque/sshaman/internal/config"
-	"github.com/Dafaque/sshaman/internal/credentials"
+	"github.com/Dafaque/sshaman/v2/internal/config"
+	"github.com/Dafaque/sshaman/v2/internal/credentials"
 )
 
 const (

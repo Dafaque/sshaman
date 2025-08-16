@@ -1,4 +1,4 @@
-module github.com/Dafaque/sshaman
+module github.com/Dafaque/sshaman/v2
 
 go 1.23.0
 

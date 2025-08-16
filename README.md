@@ -24,10 +24,10 @@ sshaman add \
 Commnd bellow will override `myfirstserver` with user `user` and password authentication:
 ```shell
 sshaman add \
-    -lias myfirstserver \
-    -host localhost \
-    -user user \
-    -force
+    -n myfirstserver \
+    -h localhost \
+    -u user \
+    -f
 ```
 ## List credentials
 ```shell

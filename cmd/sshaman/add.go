@@ -9,7 +9,7 @@ import (
 
 	"golang.org/x/term"
 
-	"github.com/Dafaque/sshaman/internal/credentials"
+	"github.com/Dafaque/sshaman/v2/internal/credentials"
 )
 
 func addConnection(manager *credentials.Manager) error {

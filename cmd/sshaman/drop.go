@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/Dafaque/sshaman/internal/credentials"
+	"github.com/Dafaque/sshaman/v2/internal/credentials"
 )
 
 func dropCredentials(manager *credentials.Manager) error {

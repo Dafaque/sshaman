@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/Dafaque/sshaman/internal/credentials"
+	"github.com/Dafaque/sshaman/v2/internal/credentials"
 )
 
 func removeCredentials(manager *credentials.Manager) error {

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Dafaque/sshaman/internal/credentials"
-	"github.com/Dafaque/sshaman/pkg/clients/ssh"
+	"github.com/Dafaque/sshaman/v2/internal/credentials"
+	"github.com/Dafaque/sshaman/v2/pkg/clients/ssh"
 )
 
 func connect(manager *credentials.Manager) error {

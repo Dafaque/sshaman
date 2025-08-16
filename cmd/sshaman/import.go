@@ -13,7 +13,7 @@ import (
 	"github.com/vmihailenco/msgpack"
 	"golang.org/x/term"
 
-	"github.com/Dafaque/sshaman/internal/credentials"
+	"github.com/Dafaque/sshaman/v2/internal/credentials"
 )
 
 func importCredentials(manager *credentials.Manager) error {
